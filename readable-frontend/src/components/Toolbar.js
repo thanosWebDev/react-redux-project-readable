@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 class Toolbar extends Component  {
   static propTypes = {
-    open: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired,
+    category: PropTypes.string.isRequired
   }
   render() {
+    const {category, openModal} = this.props;
     return (
         <div className="toolbar">
           <div className="addPost-container">
-            <div className="greenButton" onClick={()=>this.props.open('create')}>Add New Post</div>
+            <div className="greenButton" onClick={()=>openModal('create', null, category)}>Add New Post</div>
           </div>
           <div className="sortPosts-container">
            <label>Sort by:</label>
