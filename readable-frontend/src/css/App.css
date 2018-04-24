@@ -289,6 +289,20 @@ margin-bottom: 15px;
   text-align: center;
 }
 
+/* Error page */
+
+.errorPage {
+  text-align: center;
+  margin-top: 50px;
+}
+.errorPage h2,
+.errorPage p {
+  color: #666;
+  font-weight: 300;
+}
+.errorPage p {
+  font-size: 17px;
+}
 
 /* Footer */
 footer {
