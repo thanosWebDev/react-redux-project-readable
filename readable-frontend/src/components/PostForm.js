@@ -10,7 +10,8 @@ class PostForm extends Component  {
   static propTypes = {
     close: PropTypes.func.isRequired,
     modalRole: PropTypes.string.isRequired,
-    editPostId: PropTypes.string
+    editPostId: PropTypes.string,
+    category: PropTypes.string.isRequired
   }
 
   state = {
@@ -22,33 +23,28 @@ class PostForm extends Component  {
     warning: false,
   }
 
+  // Setup local state according to modal role
   componentDidMount() {
-    if (this.props.modalRole === 'create') {
-      this.setState({ date: Date.now()});
+    const {modalRole, category, posts, editPostId} = this.props;
+    if (modalRole === 'create') {
+      this.setState({ date: Date.now(), category});
     }
-    if (this.props.modalRole === 'update') {
-
-      const editpost = this.props.posts[this.props.editPostId];
-      this.setState({ 
-            title: editpost.title,
-            body: editpost.body,
-            date: editpost.timestamp
+    if (modalRole === 'update') {
+      const editPost = posts[editPostId];
+      this.setState({
+            title: editPost.title,
+            body: editPost.body,
+            date: editPost.timestamp
           })
-      // readableAPI.getPost(this.props.editPostId)
-      //   .then(data => this.setState({ 
-      //     title: data.title,
-      //     body: data.body,
-      //     date: data.timestamp
-      //   }));
-    
-      }
+    }
   }
 
   // Creates a new post, submit it to the server and add it to the store
   submitNewPost = (e) => {
     e.preventDefault()
+    const {title, body, category, author} = this.state;
     // Check for empty fields else submit post
-    if (!this.state.title || !this.state.body || !this.state.category || !this.state.author) {
+    if (!title || !body || !category || !author) {
       this.setState({warning: true});
     } else {
       // create post for server
@@ -64,11 +60,12 @@ class PostForm extends Component  {
   // Updates a post in the Store and Server
   updatePost = (e) => {
     e.preventDefault()
+    const {title, body} = this.state;
     // Check for empty fields else update post
-    if (!this.state.title || !this.state.body) {
+    if (!title || !body) {
       this.setState({warning: true});
     } else {
-      const params = [this.props.editPostId, this.state.title, this.state.body]
+      const params = [this.props.editPostId, title, body]
       // Update server
       readableAPI.updatePost(...params);
       // Update Store
