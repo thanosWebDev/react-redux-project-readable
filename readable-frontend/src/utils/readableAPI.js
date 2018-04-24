@@ -56,3 +56,9 @@ export const updatePost = (id, title, body) =>
     },
     body: JSON.stringify({title, body})
   }).then(res => res.json())
+
+// Get all posts for a specific category
+export const allCategoryPosts = (category) =>
+  fetch(`${api}/${category}/posts`, { headers })
+    .then(res => res.json())
+    .then(data => data)
