@@ -28,7 +28,7 @@ class App extends Component {
         getAllPosts(data);
       })
     // Get all gategories from server and update Store
-    readableAPI.categories().then( categories => getCategories(categories));
+    readableAPI.categories().then( data => getCategories(data))
   }
 
   componentWillMount() {
