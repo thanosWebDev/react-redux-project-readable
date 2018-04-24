@@ -13,9 +13,10 @@ import {transformData} from '../utils/helper'
 class App extends Component {
 
   state = {
-    formModalOpen: false,
+    modalOpen: false,
     modalRole: "",
-    editPostId: ""
+    editPostId: "",
+    activeCategory: ""
   }
 
   componentDidMount() {
@@ -34,17 +35,18 @@ class App extends Component {
     Modal.setAppElement('body');
   }
 
-  //Open modal form and set role function
-  openFormModal = (role, id) => {
-    this.setState(() => ({modalRole: role, editPostId: id, formModalOpen: true}));
+  //Open and setup modal form
+  openModal = (role, id, activeCategory) => {
+    this.setState(() => ({modalOpen: true, modalRole: role, editPostId: id, activeCategory}));
   }
   //Close modal form and reset settings
-  closeFormModal = () => {
-    this.setState(() => ({modalRole: "", editPostId: "", formModalOpen: false}))
+  closeModal = () => {
+    this.setState(() => ({modalOpen: false, modalRole: "", editPostId: "", activeCategory: ""}))
   }
+  
 
   render() {
-    const {formModalOpen} = this.state;
+    const {modalOpen} = this.state;
     return (
       <div>
         <div className="app-container">
@@ -62,23 +64,24 @@ class App extends Component {
               ))}
             </ul>
           </main>
+          <Modal
+            className='modal'
+            overlayClassName='overlay'
+            isOpen={modalOpen}
+            onRequestClose={this.closeModal}
+            contentLabel='Post form'
+          >
+            <PostForm
+              close={this.closeModal}
+              modalRole={this.state.modalRole}
+              editPostId={this.state.editPostId}
+              category={this.state.activeCategory}
+            />
+          </Modal>
         </div>
         <footer>
           <p>React / Redux - Test project</p>
         </footer>
-        <Modal
-          className='modal'
-          overlayClassName='overlay'
-          isOpen={formModalOpen}
-          onRequestClose={this.closeFormModal}
-          contentLabel='Create New Post'
-        >
-          <PostForm
-            close={this.closeFormModal}
-            modalRole={this.state.modalRole}
-            editPostId={this.state.editPostId}
-          />
-        </Modal>
       </div>
     );
   }
