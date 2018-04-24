@@ -14,7 +14,7 @@ class Post extends Component  {
     const {post} = this.props;
     return (
         <div className="post">
-              <Vote votes={post.voteScore}/>
+              <Vote votes={post.voteScore} id={post.id}/>
               <div className="postContent">
               <div className="postInfo">{capitalize(post.author)} / {dateConvert(post.timestamp)} / {capitalize(post.category)}</div>
                 <h2 className="postTitle">{post.title}</h2>

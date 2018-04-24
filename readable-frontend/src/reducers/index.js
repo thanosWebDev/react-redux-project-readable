@@ -5,7 +5,8 @@ import {
   DELETE_POST,
   EDIT_POST,
   GET_ALL_POSTS,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  POST_VOTE
 } from '../actions';
 
 // Categories reducer
@@ -20,17 +21,16 @@ function categories (state = [], action) {
 
 //Posts reducer
 function posts (state = {}, action) {
+  const {id, title, body, direction, post, posts} = action
   switch (action.type) {
     case GET_ALL_POSTS :
-      return action.posts
+      return posts
     case ADD_POST :
-      const {post} = action;
       return {
         ...state,
         [post.id]: post
       }
     case EDIT_POST :
-      const {id, title, body} = action;
       return {
         ...state,
         [id]: {
@@ -42,6 +42,15 @@ function posts (state = {}, action) {
     case DELETE_POST :
       const { [action.postId]: value, ...newState } = state;
       return newState
+    case POST_VOTE :
+      const currentVote = state[id].voteScore;
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          voteScore: direction === 'upVote' ? (currentVote + 1) : (currentVote - 1)
+        }
+      }
     default :
       return state
   }

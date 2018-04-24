@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { postVote } from '../actions';
+import { connect } from 'react-redux';
+import * as readableAPI from '../utils/readableAPI';
 
 class Vote extends Component  {
     static propTypes = {
-        votes: PropTypes.number.isRequired
+        votes: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
+    }
+
+    // Update a post's votes in the server and the store
+    vote = (direction, id) => {
+        readableAPI.votePost(direction, id);
+        this.props.postVote(direction, id);
     }
 
     render() {
-    const {votes} = this.props;
+    const {votes, id} = this.props;
     return (
             <div className="votes">
-                <div className="arrowUp"></div>
+                <div className="arrowUp" onClick={()=>this.vote('upVote', id)}></div>
                 <div className="voteNum">{votes}</div>
-                <div className="arrowDown"></div>
+                <div className="arrowDown" onClick={()=>this.vote('downVote', id)}></div>
             </div>
         )
     }
 }
 
-export default Vote
+function mapDispatchToProps (dispatch) {
+    return {
+      postVote: (direction, id) => dispatch(postVote(direction, id))
+    }
+  }
+
+export default connect(null, mapDispatchToProps)(Vote);

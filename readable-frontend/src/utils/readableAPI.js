@@ -62,3 +62,14 @@ export const allCategoryPosts = (category) =>
   fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json())
     .then(data => data)
+
+// Vote function for posts
+export const votePost = (direction, id) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"option": direction})
+  }).then(res => res.json())

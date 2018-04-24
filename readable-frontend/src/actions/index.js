@@ -3,6 +3,8 @@ export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const POST_VOTE = 'POST_VOTE'
+
 
 export function addPost (post) {
   return {
@@ -34,5 +36,12 @@ export function getCategories (categories) {
   return {
     type: GET_CATEGORIES,
     categories
+  }
+}
+export function postVote (direction, id) {
+  return {
+    type: POST_VOTE,
+    direction,
+    id
   }
 }
