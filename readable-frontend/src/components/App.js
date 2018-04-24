@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllPosts, getCategories } from '../actions';
+import { getCategories } from '../actions';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import '../css/App.css';
 import Header from './Header';
-import Toolbar from './Toolbar';
-import Post from './Post';
+import PostListContainer from './PostListContainer';
 import PostForm from './PostForm';
 import Modal from 'react-modal';
+import Error from './Error';
 import * as readableAPI from '../utils/readableAPI';
-import {transformData} from '../utils/helper'
 
 class App extends Component {
 
@@ -19,15 +19,9 @@ class App extends Component {
     activeCategory: ""
   }
 
+  // Get all gategories from server and update Store
   componentDidMount() {
-    const {getAllPosts, getCategories} = this.props;
-    // Get all post from server, change data format and update Store
-    readableAPI.allPosts()
-      .then( (posts) => {
-        const data = transformData(posts);
-        getAllPosts(data);
-      })
-    // Get all gategories from server and update Store
+    const {getCategories} = this.props;
     readableAPI.categories().then( data => getCategories(data))
   }
 
@@ -43,27 +37,44 @@ class App extends Component {
   closeModal = () => {
     this.setState(() => ({modalOpen: false, modalRole: "", editPostId: "", activeCategory: ""}))
   }
-  
 
   render() {
     const {modalOpen} = this.state;
     return (
-      <div>
-        <div className="app-container">
-          <Header categories={this.props.categories} />
-          <Toolbar open={this.openFormModal}/>
-          <main>
-            <ul className="postsList">
-              {this.props.posts.map((post, index) => (
-                <li key={index}>
-                <Post post={post} 
-                      getAllPosts={this.props.getAllPosts}
-                      openModal={this.openFormModal}
-                />
-                </li>
-              ))}
-            </ul>
-          </main>
+      <Router>
+        <div>
+          <div className="app-container">   
+            <Header categories={this.props.categories} /> 
+            <Switch>
+              <Route exact path="/" render={(props) => (
+                <main>
+                  <PostListContainer
+                    openModal={this.openModal}
+                    category={""}
+                    key={props.location.key}
+                  />
+                </main> 
+              )}/>
+              <Route exact path="/:category" render={(props) => (
+                <main>
+                  <PostListContainer
+                    openModal={this.openModal}
+                    category={props.match.params.category}
+                    key={props.location.key}
+                  />
+                </main>
+              )}/>
+              <Route exact path="/:category/:post_id" render={() => (
+                <main>
+                  <Error />
+                </main>
+              )}/>
+              <Route component={Error} />
+            </Switch>
+          </div>
+          <footer>
+            <p>React / Redux - Test project</p>
+          </footer>
           <Modal
             className='modal'
             overlayClassName='overlay'
@@ -79,24 +90,17 @@ class App extends Component {
             />
           </Modal>
         </div>
-        <footer>
-          <p>React / Redux - Test project</p>
-        </footer>
-      </div>
+      </Router>
     );
   }
 }
 
-function mapStateToProps ({ posts, categories }) {
-  return {
-    categories,
-    posts: Object.values(posts)
-  }
+function mapStateToProps ({ posts, categories}) {
+  return {categories}
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getAllPosts: (data) => dispatch(getAllPosts(data)),
     getCategories: (data) => dispatch(getCategories(data))
   }
 }
