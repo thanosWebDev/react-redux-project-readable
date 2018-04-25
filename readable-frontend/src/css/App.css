@@ -1,8 +1,16 @@
+/* App */
 .app-container {
   max-width: 992px;
   margin: 0 auto;
   padding: 0 10px;
 }
+
+/* Helper classes */
+
+.greenText {
+  color: #95A81D;
+}
+
 
 /* Header */
 header {
@@ -73,6 +81,7 @@ nav {
   background-color: #8DA300;
   box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.20);
   cursor: pointer;
+  border-radius: 5px;
 }
 .greenButton:hover { 
   background: #7c8f00;
@@ -103,9 +112,10 @@ nav {
 }
 .post {
 background-image: linear-gradient(-180deg, #FFFFFF 0%, #F9F9F9 100%);
-box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.35);
+box-shadow: 0px 0px 8px 0 rgba(0,0,0,0.07);
 padding: 15px 25px 12px 25px;
 display: flex;
+border-radius: 5px;
 margin-bottom: 15px;
 }
 .votes {
@@ -167,8 +177,9 @@ margin-bottom: 15px;
   margin: 3px 0;
 }
 .excerpt {
-  font-size: 14.5px;
+  font-size: 15px;
   color: #777;
+  font-weight: 300;
   margin: 5px 0;
 }
 .comments {
@@ -209,7 +220,7 @@ margin-bottom: 15px;
   top: 40px;
   margin: 0 auto;
   border: 1px solid rgb(228, 220, 214);
-  background-color: #F6F2EA;
+  background-color: #F6F3EF;
   overflow: auto;
   border-radius: 4px;
   outline: none;
@@ -234,7 +245,7 @@ margin-bottom: 15px;
 .modalTitle {
   padding: 0 0 4px 0;
   margin: 0;
-  border-bottom: 1px solid #999;
+  border-bottom: 2px solid #95A81D;
   color: #777;
   font-size: 22px;
   font-weight: 400;
@@ -248,7 +259,7 @@ margin-bottom: 15px;
   margin-bottom: 25px;
   background-image: none !important;
   background-color: #fff !important;
-  border-radius: 0 !important;
+  border-radius: 5px;
   border: 1px solid #bbb !important;
   padding: 0 5px;
   font-size: 16px;
@@ -263,7 +274,7 @@ margin-bottom: 15px;
   height: 210px;
   width: 100%;
   background-color: #fff !important;
-  border-radius: 0 !important;
+  border-radius: 5px;
   border: 1px solid #bbb !important;
   padding: 5px 5px;;
   font-size: 16px;

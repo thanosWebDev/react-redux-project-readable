@@ -16,7 +16,7 @@ class Post extends Component  {
         <div className="post">
               <Vote votes={post.voteScore} id={post.id}/>
               <div className="postContent">
-              <div className="postInfo">{capitalize(post.author)} / {dateConvert(post.timestamp)} / {capitalize(post.category)}</div>
+              <div className="postInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</div>
                 <h2 className="postTitle">{post.title}</h2>
                 <p className="excerpt">{post.body}…</p>
                 <div className="comments">Comments: {post.commentCount}</div>

@@ -115,7 +115,7 @@ class PostForm extends Component  {
                   value={this.state.author} 
                   onChange={this.handleInputChange}
                   />
-                <select className="flatInput" autoComplete="off"
+                <select className="flatInput"
                   name="category"
                   value={this.state.category} 
                   onChange={this.handleInputChange}
