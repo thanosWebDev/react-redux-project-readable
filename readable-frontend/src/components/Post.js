@@ -18,7 +18,7 @@ class Post extends Component  {
               <Vote votes={post.voteScore} id={post.id}/>
               <div className="postContent">
               <div className="postInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</div>
-                <Link exact to={`/${post.category}/${post.id}`}>
+                <Link to={`/${post.category}/${post.id}`}>
                   <h2 className="postTitle">{post.title}</h2>
                 </Link>
                 <p className="excerpt">{post.body.substr(0, 130)}…</p>
