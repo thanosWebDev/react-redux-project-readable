@@ -8,25 +8,25 @@ class PostActions extends Component  {
   static propTypes = {
     id: PropTypes.string.isRequired,
     openModal: PropTypes.func.isRequired,
-    post_id: PropTypes.string,
     redirect: PropTypes.func
 
   }
 
   // Deletes a post from server and store
   deletePost = (id) => {
+    const {deletePost, redirect} = this.props;
     readableAPI.deletePost(id)
-    this.props.deletePost(id);
-    if (this.props.post_id){
-      this.props.redirect('/')
+    deletePost(id);
+    if (window.location.pathname.includes(id)){
+      redirect('/')
     }
   }
 
   render() {
-    const {id} = this.props;
+    const {id, openModal} = this.props;
     return (
       <div className="postActions">
-        <div className="edit" onClick={()=>this.props.openModal('update', id)}>edit</div>
+        <div className="edit" onClick={()=>openModal('update', id)}>edit</div>
         <div className="delete" onClick={() => this.deletePost(id)}>delete</div>
       </div>
     )
