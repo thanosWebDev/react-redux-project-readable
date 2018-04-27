@@ -11,8 +11,8 @@ import {capitalize, dateConvert} from '../utils/helper';
 
 class FullPost extends Component  {
   static propTypes = {
-    openModal: PropTypes.func.isRequired
-    // category: PropTypes.string.isRequired
+    openModal: PropTypes.func.isRequired,
+    post_id: PropTypes.string.isRequired
   }
 
   state = {
@@ -22,8 +22,8 @@ class FullPost extends Component  {
   
   // Get posts from server, change data format and update Store
   componentDidMount() {
-    const {getAllPosts, params} = this.props;
-      readableAPI.getPost(params.post_id)
+    const {getAllPosts, post_id} = this.props;
+      readableAPI.getPost(post_id)
       .then( post => {
         if (post.error || !post.id) {
           this.setState(() => ({isIdValid: false, isLoading: false}));
@@ -61,7 +61,6 @@ class FullPost extends Component  {
             <p className="fullpostBody">{post.body || "loading.."}</p>
             <PostActions  id={post.id}
                           openModal={this.props.openModal}
-                          post_id={this.props.params.post_id}
                           redirect={this.props.push}
             />
           </div>

@@ -11,7 +11,6 @@ class Header extends Component  {
   }
 
   render() {
-    const {categories} = this.props;
     return (
       <header>
         <h1 className="logo">Readable</h1>
@@ -19,7 +18,7 @@ class Header extends Component  {
         <nav>
           <div className="menu">
             <NavLink exact to='/' className="menu-item"><Home /></NavLink>
-            {categories.map((category, index) => (
+            {this.props.categories.map((category, index) => (
               <NavLink to={`/${category.path}`} className="menu-item" key={index}>{capitalize(category.name)}</NavLink>
             ))}
           </div>

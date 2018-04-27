@@ -7,6 +7,7 @@ export const POST_VOTE = 'POST_VOTE'
 export const SORT_BY = 'SORT_BY'
 
 
+// Post actions
 export function addPost (post) {
   return {
     type: ADD_POST,
@@ -33,12 +34,16 @@ export function editPost (id, title, body) {
     body
   }
 }
+
+// Categories actions
 export function getCategories (categories) {
   return {
     type: GET_CATEGORIES,
     categories
   }
 }
+
+// General app actions
 export function postVote (direction, id) {
   return {
     type: POST_VOTE,

@@ -12,10 +12,12 @@ class Post extends Component  {
   }
 
   render() {
-    const {post} = this.props;
+    const {post, openModal} = this.props;
     return (
         <div className="post">
-              <Vote votes={post.voteScore} id={post.id}/>
+              <Vote votes={post.voteScore}
+                    id={post.id}
+              />
               <div className="postContent">
               <div className="postInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</div>
                 <Link to={`/${post.category}/${post.id}`}>
@@ -23,7 +25,9 @@ class Post extends Component  {
                 </Link>
                 <p className="excerpt">{post.body.substr(0, 130)}…</p>
                 <div className="comments">Comments: {post.commentCount}</div>
-                <PostActions id={post.id} openModal={this.props.openModal}/>
+                <PostActions  id={post.id}
+                              openModal={openModal}
+                />
               </div>
         </div>
     )

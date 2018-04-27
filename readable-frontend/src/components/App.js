@@ -22,8 +22,7 @@ class App extends Component {
 
   // Get all gategories from server and update Store
   componentDidMount() {
-    const {getCategories} = this.props;
-    readableAPI.categories().then( data => getCategories(data))
+    readableAPI.categories().then( data => this.props.getCategories(data))
   }
 
   componentWillMount() {
@@ -32,15 +31,27 @@ class App extends Component {
 
   //Open and setup modal form
   openModal = (role, id, activeCategory) => {
-    this.setState(() => ({modalOpen: true, modalRole: role, editPostId: id, activeCategory}));
+    const modalConfig = {
+      modalOpen: true,
+      modalRole: role,
+      editPostId: id,
+      activeCategory
+    }
+    this.setState(() => (modalConfig));
   }
   //Close modal form and reset settings
   closeModal = () => {
-    this.setState(() => ({modalOpen: false, modalRole: "", editPostId: "", activeCategory: ""}))
+    const modalReset = {
+      modalOpen: false,
+      modalRole: "",
+      editPostId: "",
+      activeCategory: ""
+    }
+    this.setState(() => (modalReset))
   }
 
   render() {
-    const {modalOpen} = this.state;
+    const {modalOpen, modalRole, editPostId, activeCategory} = this.state;
     return (
       <Router>
         <div>
@@ -68,7 +79,7 @@ class App extends Component {
               <Route exact path="/:category/:post_id" render={({match, history}) => (
                 <main>
                   <FullPost openModal={this.openModal}
-                            {...match}
+                            post_id={match.params.post_id}
                             {...history}
                   />
                 </main>
@@ -88,9 +99,9 @@ class App extends Component {
           >
             <PostForm
               close={this.closeModal}
-              modalRole={this.state.modalRole}
-              editPostId={this.state.editPostId}
-              category={this.state.activeCategory}
+              modalRole={modalRole}
+              editPostId={editPostId}
+              category={activeCategory}
             />
           </Modal>
         </div>
@@ -99,7 +110,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ posts, categories}) {
+function mapStateToProps ({categories}) {
   return {categories}
 }
 
