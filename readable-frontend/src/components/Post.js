@@ -21,7 +21,7 @@ class Post extends Component  {
                 <Link exact to={`/${post.category}/${post.id}`}>
                   <h2 className="postTitle">{post.title}</h2>
                 </Link>
-                <p className="excerpt">{post.body}…</p>
+                <p className="excerpt">{post.body.substr(0, 130)}…</p>
                 <div className="comments">Comments: {post.commentCount}</div>
                 <PostActions id={post.id} openModal={this.props.openModal}/>
               </div>
