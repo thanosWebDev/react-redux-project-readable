@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Vote from './Vote';
 import PostActions from './PostActions'
 import {capitalize, dateConvert} from '../utils/helper'
@@ -17,7 +18,9 @@ class Post extends Component  {
               <Vote votes={post.voteScore} id={post.id}/>
               <div className="postContent">
               <div className="postInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</div>
-                <h2 className="postTitle">{post.title}</h2>
+                <Link exact to={`/${post.category}/${post.id}`}>
+                  <h2 className="postTitle">{post.title}</h2>
+                </Link>
                 <p className="excerpt">{post.body}…</p>
                 <div className="comments">Comments: {post.commentCount}</div>
                 <PostActions id={post.id} openModal={this.props.openModal}/>
