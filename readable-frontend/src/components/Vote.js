@@ -21,7 +21,7 @@ class Vote extends Component  {
     return (
             <div className="votes">
                 <div className="arrowUp" onClick={()=>this.vote('upVote', id)}></div>
-                <div className="voteNum">{votes}</div>
+                <div className="voteNum">{votes || 0}</div>
                 <div className="arrowDown" onClick={()=>this.vote('downVote', id)}></div>
             </div>
         )
