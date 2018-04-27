@@ -28,7 +28,7 @@ export function createPost(data) {
   return newPost;
 }
 
-// Transform posts array from server to Objects with Id
+// Transform the posts, returned from server, to a format better suited for Store state
 export function transformData(data) {
   let newObj = {};
   for (let i=0; i<data.length; i++) {

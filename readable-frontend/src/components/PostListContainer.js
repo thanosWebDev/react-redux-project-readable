@@ -7,7 +7,6 @@ import Toolbar from './Toolbar';
 import Error from './Error';
 import Loading from './Loading';
 import * as readableAPI from '../utils/readableAPI';
-import {transformData} from '../utils/helper';
 
 class PostListContainer extends Component  {
   static propTypes = {
@@ -19,21 +18,19 @@ class PostListContainer extends Component  {
     isLoading: true
   }
   
-  // Get posts from server, change data format and update Store
+  // Get posts from server and update Store
   componentDidMount() {
     const {getAllPosts, category} = this.props;
     if(category) { //For e specific category
     readableAPI.allCategoryPosts(category)
       .then( posts => {
-        const data = transformData(posts);
-        getAllPosts(data);
+        getAllPosts(posts);
         this.setState(() => ({isLoading: false}));
       })
     } else {// For homepage
       readableAPI.allPosts()
       .then( posts => {
-        const data = transformData(posts);
-        getAllPosts(data);
+        getAllPosts(posts);
         this.setState(() => ({isLoading: false}));
       })
     }

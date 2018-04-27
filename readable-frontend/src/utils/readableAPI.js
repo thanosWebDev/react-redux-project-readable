@@ -1,3 +1,5 @@
+import {transformData} from './helper';
+
 //Locall server must be running
 const api = "http://localhost:3001"
 
@@ -22,6 +24,7 @@ export const categories = () =>
 export const allPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
+    .then(data => transformData(data))
     .then(data => data)
 
 // Add a new post to server
@@ -61,6 +64,7 @@ export const updatePost = (id, title, body) =>
 export const allCategoryPosts = (category) =>
   fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json())
+    .then(data => transformData(data))
     .then(data => data)
 
 // Vote function for posts
