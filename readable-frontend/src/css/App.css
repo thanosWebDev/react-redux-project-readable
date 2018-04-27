@@ -175,6 +175,10 @@ margin-bottom: 15px;
   font-size: 20px;
   color: #4A4A4A;
   margin: 3px 0;
+  display: inline;
+}
+.postTitle:hover {
+  color: #7c8f00;
 }
 .excerpt {
   font-size: 15px;
