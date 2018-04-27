@@ -65,10 +65,11 @@ class App extends Component {
                   />
                 </main>
               )}/>
-              <Route exact path="/:category/:post_id" render={({match}) => (
+              <Route exact path="/:category/:post_id" render={({match, history}) => (
                 <main>
                   <FullPost openModal={this.openModal}
                             {...match}
+                            {...history}
                   />
                 </main>
               )}/>

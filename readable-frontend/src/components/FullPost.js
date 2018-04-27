@@ -60,7 +60,11 @@ class FullPost extends Component  {
             <p className="fullpostInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</p>
             <h1 className="fullpostTitle">{post.title || "loading.."}</h1>
             <p className="fullpostBody">{post.body || "loading.."}</p>
-            <PostActions id={post.id} openModal={this.props.openModal}/>
+            <PostActions  id={post.id}
+                          openModal={this.props.openModal}
+                          post_id={this.props.params.post_id}
+                          redirect={this.props.push}
+            />
           </div>
 
           <div className="commentsSection">

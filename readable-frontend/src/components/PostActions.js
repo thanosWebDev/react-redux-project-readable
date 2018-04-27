@@ -7,13 +7,19 @@ import * as readableAPI from '../utils/readableAPI';
 class PostActions extends Component  {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    openModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired,
+    post_id: PropTypes.string,
+    redirect: PropTypes.func
+
   }
 
   // Deletes a post from server and store
   deletePost = (id) => {
     readableAPI.deletePost(id)
     this.props.deletePost(id);
+    if (this.props.post_id){
+      this.props.redirect('/')
+    }
   }
 
   render() {
