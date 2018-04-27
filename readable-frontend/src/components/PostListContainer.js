@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Post from './Post';
 import Toolbar from './Toolbar';
 import Error from './Error';
+import Loading from './Loading';
 import * as readableAPI from '../utils/readableAPI';
 import {transformData} from '../utils/helper';
 
@@ -12,6 +13,10 @@ class PostListContainer extends Component  {
   static propTypes = {
     openModal: PropTypes.func.isRequired,
     category: PropTypes.string.isRequired
+  }
+
+  state = {
+    isLoading: true
   }
   
   // Get posts from server, change data format and update Store
@@ -22,12 +27,14 @@ class PostListContainer extends Component  {
       .then( posts => {
         const data = transformData(posts);
         getAllPosts(data);
+        this.setState(() => ({isLoading: false}));
       })
     } else {// For homepage
       readableAPI.allPosts()
       .then( posts => {
         const data = transformData(posts);
         getAllPosts(data);
+        this.setState(() => ({isLoading: false}));
       })
     }
   }
@@ -35,11 +42,19 @@ class PostListContainer extends Component  {
   render() {
     const {category, categories} = (this.props);
     const homepage = (category === "");
-    const routeExists = (categories.indexOf(category) >= 0);
+    const categoryExists = (categories.indexOf(category) >= 0);
+
+    // Render Loading component
+    if (this.state.isLoading) {
+      return <span><Loading /></span>
+    }
+    // Render Error page if category is not valid
+    if (!categoryExists && !homepage) {
+      return <span><Error /></span>
+    }
+
     return (
       <div>
-      {(routeExists || homepage)  &&
-        <div>
           <Toolbar openModal={this.props.openModal} category={category}/>
           <ul className="postsList">
             {this.props.posts.map((post, index) => (
@@ -50,13 +65,6 @@ class PostListContainer extends Component  {
               </li>
             ))}
           </ul>
-        </div>  
-      }
-      {(!routeExists && !homepage) &&
-        <div>
-          <Error />
-        </div>           
-      }
       </div>
     )
   }
