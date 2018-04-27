@@ -71,11 +71,10 @@ class PostListContainer extends Component  {
 }
 
 function mapStateToProps ({ posts, categories, sortBy}) {
-  const sortField = sortBy === "votes" ? "voteScore" : "timestamp";
   return {
     // Dynamic sorting of posts array 
     posts: Object.values(posts)
-            .sort((a, b) => b[sortField] - a[sortField]),
+            .sort((a, b) => b[sortBy] - a[sortBy]),
     categories: categories.map(item => item.path)
   }
 }

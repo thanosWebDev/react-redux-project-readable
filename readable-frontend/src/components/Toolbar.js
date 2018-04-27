@@ -19,8 +19,9 @@ class Toolbar extends Component  {
           <div className="sortPosts-container">
            <label>Sort by:</label>
            <select value={sorting} onChange={(event) => sortBy(event.target.value)}>
-              <option value="date">Date</option>
-              <option value="votes">Votes</option>
+              <option value="timestamp">Date</option>
+              <option value="voteScore">Votes</option>
+              <option value="commentCount">Comments</option>
             </select>
           </div>
         </div>

@@ -21,7 +21,7 @@ function categories (state = [], action) {
 }
 
 // Sorting reducer
-function sortBy (state = "date", action) {
+function sortBy (state = "timestamp", action) {
   switch (action.type) {
     case SORT_BY :
       return action.sort
