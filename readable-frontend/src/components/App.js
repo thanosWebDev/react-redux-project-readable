@@ -6,6 +6,7 @@ import '../css/App.css';
 import Header from './Header';
 import PostListContainer from './PostListContainer';
 import PostForm from './PostForm';
+import FullPost from './FullPost';
 import Modal from 'react-modal';
 import Error from './Error';
 import * as readableAPI from '../utils/readableAPI';
@@ -64,17 +65,19 @@ class App extends Component {
                   />
                 </main>
               )}/>
-              <Route exact path="/:category/:post_id" render={() => (
+              <Route exact path="/:category/:post_id" render={({match}) => (
                 <main>
-                  <Error />
+                  <FullPost openModal={this.openModal}
+                            {...match}
+                  />
                 </main>
               )}/>
               <Route component={Error} />
             </Switch>
           </div>
-          <footer>
+          {/* <footer>
             <p>React / Redux - Test project</p>
-          </footer>
+          </footer> */}
           <Modal
             className='modal'
             overlayClassName='overlay'
