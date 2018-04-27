@@ -6,7 +6,8 @@ import {
   EDIT_POST,
   GET_ALL_POSTS,
   GET_CATEGORIES,
-  POST_VOTE
+  POST_VOTE,
+  SORT_BY
 } from '../actions';
 
 // Categories reducer
@@ -14,6 +15,16 @@ function categories (state = [], action) {
   switch (action.type) {
     case GET_CATEGORIES :
       return action.categories
+    default :
+      return state
+  }
+}
+
+// Sorting reducer
+function sortBy (state = "date", action) {
+  switch (action.type) {
+    case SORT_BY :
+      return action.sort
     default :
       return state
   }
@@ -59,4 +70,5 @@ function posts (state = {}, action) {
 export default combineReducers({
   categories,
   posts,
+  sortBy
 })

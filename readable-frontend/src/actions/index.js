@@ -4,6 +4,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const POST_VOTE = 'POST_VOTE'
+export const SORT_BY = 'SORT_BY'
 
 
 export function addPost (post) {
@@ -43,5 +44,11 @@ export function postVote (direction, id) {
     type: POST_VOTE,
     direction,
     id
+  }
+}
+export function sortBy (sort) {
+  return {
+    type: SORT_BY,
+    sort
   }
 }
