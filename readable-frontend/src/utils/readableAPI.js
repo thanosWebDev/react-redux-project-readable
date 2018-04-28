@@ -43,13 +43,13 @@ export const deletePost = (id) =>
   fetch(`${api}/posts/${id}`, {method: 'DELETE', headers})
     .then(res => res.json())
 
-// Gat a specific post
+// Get the details of a single post
 export const getPost = (id) =>
   fetch(`${api}/posts/${id}`, { headers })
     .then(res => res.json())
     .then(data => data)
 
-// Update a specific post
+// Edit the details of an existing post
 export const updatePost = (id, title, body) =>
   fetch(`${api}/posts/${id}`, {
     method: 'PUT',
@@ -60,16 +60,34 @@ export const updatePost = (id, title, body) =>
     body: JSON.stringify({title, body})
   }).then(res => res.json())
 
-// Get all posts for a specific category
+// Get all of the posts for a particular category
 export const allCategoryPosts = (category) =>
   fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json())
     .then(data => transformData(data))
     .then(data => data)
 
-// Vote function for posts
+// Used for voting on a post
 export const votePost = (direction, id) =>
   fetch(`${api}/posts/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"option": direction})
+  }).then(res => res.json())
+
+// Get all the comments for a single post
+export const allPostComments = (id) =>
+  fetch(`${api}/posts/${id}/comments`, { headers })
+    .then(res => res.json())
+    .then(data => transformData(data))
+    .then(data => data)
+
+// Used for voting on a comment
+export const voteComment = (direction, id) =>
+  fetch(`${api}/comments/${id}`, {
     method: 'POST',
     headers: {
       ...headers,

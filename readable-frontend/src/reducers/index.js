@@ -9,7 +9,9 @@ import {
   POST_VOTE,
   SORT_BY,
   CLOSE_MODAL,
-  OPEN_MODAL
+  OPEN_MODAL,
+  GET_COMMENTS,
+  COMMENT_VOTE
 } from '../actions';
 
 // Categories reducer
@@ -95,8 +97,29 @@ function posts (state = {}, action) {
   }
 }
 
+//Comments reducer
+function comments (state = {}, action) {
+  const {id, body, direction, comment, comments} = action
+  switch (action.type) {
+    case GET_COMMENTS :
+      return comments
+    case COMMENT_VOTE :
+      const currentVote = state[id].voteScore;
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          voteScore: direction === 'upVote' ? (currentVote + 1) : (currentVote - 1)
+        }
+      }
+    default :
+      return state
+  }
+}
+
 export default combineReducers({
   categories,
+  comments,
   posts,
   sortBy,
   modal

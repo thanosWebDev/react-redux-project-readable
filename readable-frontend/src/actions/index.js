@@ -1,12 +1,19 @@
+// posts
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
+// categories
 export const GET_CATEGORIES = 'GET_CATEGORIES'
+// General
 export const POST_VOTE = 'POST_VOTE'
+export const COMMENT_VOTE ='COMMENT_VOTE'
 export const SORT_BY = 'SORT_BY'
+// Modal
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const OPEN_MODAL = 'OPEN_MODAL'
+// Comments
+export const GET_COMMENTS = 'GET_COMMENTS'
 
 
 // Post actions
@@ -37,6 +44,14 @@ export function editPost (id, title, body) {
   }
 }
 
+// Comments actions
+export function getComments (comments) {
+  return {
+    type: GET_COMMENTS,
+    comments
+  }
+}
+
 // Categories actions
 export function getCategories (categories) {
   return {
@@ -49,6 +64,13 @@ export function getCategories (categories) {
 export function postVote (direction, id) {
   return {
     type: POST_VOTE,
+    direction,
+    id
+  }
+}
+export function commentVote (direction, id) {
+  return {
+    type: COMMENT_VOTE,
     direction,
     id
   }
