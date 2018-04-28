@@ -22,7 +22,7 @@ function categories (state = [], action) {
   }
 }
 
-// Sorting reducer
+// Modal control reducer
 
 const defaultModal = {
   open: false,
@@ -48,7 +48,7 @@ function modal (state = defaultModal, action) {
   }
 }
 
-// Modal control reducer
+// Sorting reducer
 function sortBy (state = "timestamp", action) {
   switch (action.type) {
     case SORT_BY :
