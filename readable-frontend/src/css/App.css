@@ -5,8 +5,8 @@
   padding: 0 10px;
 }
 
-/* Helper classes */
 
+/* Helper classes */
 .greenText {
   color: rgb(174, 201, 0);
 }
@@ -58,8 +58,8 @@ nav {
   background-color: #8DA300;
 }
 
-/* Toolbar */
 
+/* Toolbar */
 .toolbar {
   margin: 30px 0;
 }
@@ -103,7 +103,6 @@ nav {
   background-color: white;
 }
 
-/* Main */
 
 /* Posts */
 .postsList {
@@ -118,50 +117,6 @@ padding: 15px 25px 12px 25px;
 display: flex;
 border-radius: 5px;
 margin-bottom: 15px;
-}
-.votes {
-  height: 88px;
-  min-width: 45px;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.arrowUp {
-  width: 0;
-	height: 0;
-	border-left: 21px solid transparent;
-	border-right: 21px solid transparent;
-  border-bottom: 20px solid #AAA;
-  cursor: pointer;
-}
-.arrowUp:hover {
-  border-bottom: 20px solid #8DA300;
-}
-.arrowUp:active {
-  border-bottom: 20px solid #7c8f00;
-}
-.arrowDown {
-  width: 0;
-	height: 0;
-	border-left: 21px solid transparent;
-	border-right: 21px solid transparent;
-  border-top: 20px solid #AAA;
-  cursor: pointer;
-}
-.arrowDown:hover {
-  border-top: 20px solid #8DA300;
-}
-.arrowDown:active {
-  border-top: 20px solid #7c8f00;
-}
-.voteNum {
-  color: #555;
-  font-weight: 300;
-  font-style: italic;
-  font-size: 28px;
-  text-align: center;
 }
 .postContent {
   flex: 1 1 auto;
@@ -209,6 +164,76 @@ margin-bottom: 15px;
   border-radius: 3px;
   cursor: pointer;
 }
+
+
+/* Votes component */
+.votes {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.v-post {
+  height: 88px;
+}
+.v-comment {
+  height: 60px;
+}
+.arrow {
+  width: 0;
+	height: 0;
+  cursor: pointer;
+}
+.arrowUp-post {
+	border-left: 21px solid transparent;
+	border-right: 21px solid transparent;
+  border-bottom: 20px solid #AAA;
+}
+.arrowUp-comment {
+	border-left: 13px solid transparent;
+	border-right: 13px solid transparent;
+  border-bottom: 12px solid #AAA;
+}
+.arrowUp-post:hover,
+.arrowUp-comment:hover {
+  border-bottom-color: #8DA300;
+}
+.arrowUp-post:active,
+.arrowUp-comment:active {
+  border-bottom-color: #7c8f00;
+}
+.arrowDown-post {
+	border-left: 21px solid transparent;
+	border-right: 21px solid transparent;
+  border-top: 20px solid #AAA;
+}
+.arrowDown-comment {
+	border-left: 13px solid transparent;
+	border-right: 13px solid transparent;
+  border-top: 12px solid #AAA;
+}
+.arrowDown-post:hover,
+.arrowDown-comment:hover {
+  border-top-color: #8DA300;
+}
+.arrowDown-post:active,
+.arrowDown-comment:active  {
+  border-top-color: #7c8f00;
+}
+.voteNum {
+  color: #555;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+}
+.vNum-post {
+  font-size: 28px;
+}
+.vNum-comment {
+  font-size: 16px;
+}
+
 
 /* Modal Form */
 .overlay {
@@ -305,8 +330,8 @@ margin-bottom: 15px;
   text-align: center;
 }
 
-/* Full Post */
 
+/* Full Post */
 .fullPostContainer {
   margin-top: 45px;
   display: flex;
@@ -352,32 +377,53 @@ margin-bottom: 15px;
   padding-bottom: 3px;
   border-bottom: 2px solid rgb(223, 231, 173);
 }
+.commentsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 
 /* Comment component */
-
 .comment {
   display: flex;
+  margin-bottom: 25px;
 }
 .commentVote {
+  width: 56px;
   flex: 0 0 auto;
 }
-.commentBody {
-
+.mainComment {
+  flex: 1 1 auto;
 }
-
 .commentInfo {
   font-size: 12px;
+  color: #888;
+  font-weight: 300;
+  margin: 0;
 }
-.commentText {
+.commentBody {
   font-size: 14px;
-  color: #4A4A4A
+  color: #444;
+  margin: 7px 0 8px 0;
 }
 .commentActions {
   font-size: 13px;
-  color: #777;
+  color: #999;
 }
-/* Error page */
+.editComment,
+.deleteComment {
+  display: inline-block;
+  margin-right: 15px;
+}
+.editComment:hover,
+.deleteComment:hover {
+  cursor: pointer;
+  color: #666;
+}
 
+
+/* Error page */
 .errorPage {
   text-align: center;
   margin-top: 50px;
@@ -390,6 +436,7 @@ margin-bottom: 15px;
 .errorPage p {
   font-size: 17px;
 }
+
 
 /* Footer */
 footer {
