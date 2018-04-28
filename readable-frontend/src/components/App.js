@@ -4,7 +4,7 @@ import { getCategories, closeModal } from '../actions';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import '../css/App.css';
 import Header from './Header';
-import PostListContainer from './PostListContainer';
+import PostList from './PostList';
 import PostForm from './PostForm';
 import ViewPost from './ViewPost';
 import Modal from 'react-modal';
@@ -32,7 +32,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={(props) => (
                 <main>
-                  <PostListContainer
+                  <PostList
                     category={""}
                     key={props.location.key}
                   />
@@ -40,7 +40,7 @@ class App extends Component {
               )}/>
               <Route exact path="/:category" render={(props) => (
                 <main>
-                  <PostListContainer
+                  <PostList
                     category={props.match.params.category}
                     key={props.location.key}
                   />

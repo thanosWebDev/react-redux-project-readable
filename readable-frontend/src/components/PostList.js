@@ -8,7 +8,7 @@ import Error from './Error';
 import Loading from './Loading';
 import * as readableAPI from '../utils/readableAPI';
 
-class PostListContainer extends Component  {
+class PostList extends Component  {
   static propTypes = {
     category: PropTypes.string.isRequired
   }
@@ -79,4 +79,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
