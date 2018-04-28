@@ -8,7 +8,7 @@
 /* Helper classes */
 
 .greenText {
-  color: #95A81D;
+  color: rgb(174, 201, 0);
 }
 
 
@@ -33,6 +33,7 @@ header {
 nav {
   background-color: #777;
   margin-top: 10px;
+  border-radius: 5px;
 }
 .menu {
   padding: 0;
@@ -120,7 +121,6 @@ margin-bottom: 15px;
 }
 .votes {
   height: 88px;
-  margin-right: 25px;
   min-width: 45px;
   flex: 0 0 auto;
   display: flex;
@@ -165,6 +165,7 @@ margin-bottom: 15px;
 }
 .postContent {
   flex: 1 1 auto;
+  margin-left: 25px;
 }
 .postInfo {
   font-size: 13px;
@@ -307,14 +308,13 @@ margin-bottom: 15px;
 /* Full Post */
 
 .fullPostContainer {
-  margin-top: 40px;
+  margin-top: 45px;
   display: flex;
 }
-
 .voteSection {
   width: 90px;
+  padding-top: 42px;
   flex: 0 0 auto;
-
 }
 .postSection {
   padding: 40px;
@@ -329,21 +329,23 @@ margin-bottom: 15px;
 .fullpostInfo {
   font-size: 15px;
   color: #999;
+  font-weight: 300;
 } 
 .fullpostTitle{
   color: #4A4A4A;
   margin: 8px 0 8px;
+  font-size: 30px;
 } 
 .fullpostBody {
   font-weight: 300;
   font-size: 17px;
   line-height: 26px;
+  color: #666;
+  margin-bottom: 15px !important;
 } 
-
 .commentsSection {
-  margin-top: 70px;;
+  margin-top: 60px;
 }
-
 .commentsNum {
   font-weight: 500;
   color: #4A4A4A;

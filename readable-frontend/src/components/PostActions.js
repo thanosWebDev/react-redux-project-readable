@@ -25,8 +25,8 @@ class PostActions extends Component  {
     const {id, openModal} = this.props;
     return (
       <div className="postActions">
-        <div className="edit" onClick={()=>openModal('update', id, null)}>edit</div>
-        <div className="delete" onClick={() => this.deletePost(id)}>delete</div>
+        <div className="edit" onClick={()=>openModal('update', id, null)}>Edit</div>
+        <div className="delete" onClick={() => this.deletePost(id)}>Delete</div>
       </div>
     )
   }
