@@ -21,7 +21,7 @@ class ViewPost extends Component  {
   }
   
   componentDidMount() {
-    const {getAllPosts, getComments, post_id} = this.props;
+    const {getAllPosts, post_id} = this.props;
       // Get post details from server and update Store
       readableAPI.getPost(post_id)
       .then( post => {
@@ -61,7 +61,7 @@ class ViewPost extends Component  {
   }
 }
 
-function mapStateToProps ({posts, comments}) {
+function mapStateToProps ({posts}) {
   return {
     post: {...Object.values(posts)[0]},
   }
