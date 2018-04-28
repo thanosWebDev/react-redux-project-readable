@@ -43,16 +43,22 @@ class PostForm extends Component  {
   submitNewPost = (e) => {
     e.preventDefault()
     const {title, body, category, author} = this.state;
+    const {activeCategory} = this.props;
     // Check for empty fields else submit post
     if (!title || !body || !category || !author) {
       this.setState({warning: true});
     } else {
-      // create post for server
+      // create post for server and submit
       const newServerPost = createPost(this.state);
       readableAPI.addNewPost(newServerPost);
-      // Create post for Store
-      const newStorePost = {...newServerPost, voteScore: 1, delete: false, commentCount: 0}
-      this.props.addPost(newStorePost);
+      
+      // If form's selected category equals menu activeCategory
+      // or activeCategory is empty (homepage) then update Store too
+      if (activeCategory === category || activeCategory === "") {
+        // Create post for Store and dispatch
+        const newStorePost = {...newServerPost, voteScore: 1, delete: false, commentCount: 0}
+        this.props.addPost(newStorePost);
+      }
       this.props.closeModal();
     }
   }
