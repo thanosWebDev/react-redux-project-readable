@@ -11,7 +11,7 @@ class PostForm extends Component  {
   static propTypes = {
     modalRole: PropTypes.string.isRequired,
     editPostId: PropTypes.string,
-    category: PropTypes.string
+    activeCategory: PropTypes.string
   }
 
   state = {
@@ -25,9 +25,9 @@ class PostForm extends Component  {
 
   // Setup local state according to modal role
   componentDidMount() {
-    const {modalRole, category, posts, editPostId} = this.props;
+    const {modalRole, activeCategory, posts, editPostId} = this.props;
     if (modalRole === 'create') {
-      this.setState({ date: Date.now(), category});
+      this.setState({ date: Date.now(), category: activeCategory});
     }
     if (modalRole === 'update') {
       const editPost = posts[editPostId];

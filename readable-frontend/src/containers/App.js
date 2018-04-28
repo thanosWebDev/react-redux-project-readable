@@ -69,7 +69,7 @@ class App extends Component {
             <PostForm
               modalRole={role}
               editPostId={editPostId}
-              category={activeCategory}
+              activeCategory={activeCategory}
             />
           </Modal>
         </div>
