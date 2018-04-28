@@ -11,7 +11,8 @@ import {
   CLOSE_MODAL,
   OPEN_MODAL,
   GET_COMMENTS,
-  COMMENT_VOTE
+  COMMENT_VOTE,
+  DELETE_COMMENT
 } from '../actions';
 
 // Categories reducer
@@ -99,10 +100,13 @@ function posts (state = {}, action) {
 
 //Comments reducer
 function comments (state = {}, action) {
-  const {id, body, direction, comment, comments} = action
+  const {id, direction, comments} = action
   switch (action.type) {
     case GET_COMMENTS :
       return comments
+    case DELETE_COMMENT :
+      const { [action.commentId]: value, ...newState } = state;
+      return newState
     case COMMENT_VOTE :
       const currentVote = state[id].voteScore;
       return {

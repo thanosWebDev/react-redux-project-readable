@@ -14,6 +14,7 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const OPEN_MODAL = 'OPEN_MODAL'
 // Comments
 export const GET_COMMENTS = 'GET_COMMENTS'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 
 // Post actions
@@ -49,6 +50,12 @@ export function getComments (comments) {
   return {
     type: GET_COMMENTS,
     comments
+  }
+}
+export function deleteComment (commentId) {
+  return {
+    type: DELETE_COMMENT,
+    commentId
   }
 }
 

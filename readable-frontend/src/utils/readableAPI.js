@@ -14,12 +14,15 @@ const headers = {
   'Authorization': token
 }
 
-//Get all available gategories from server
+// GATEGORIES
+// Get all available gategories from server
 export const categories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
 
+
+// POSTS
 // Get all posts from server
 export const allPosts = () =>
   fetch(`${api}/posts`, { headers })
@@ -78,6 +81,8 @@ export const votePost = (direction, id) =>
     body: JSON.stringify({"option": direction})
   }).then(res => res.json())
 
+
+// COMMENTS
 // Get all the comments for a single post
 export const allPostComments = (id) =>
   fetch(`${api}/posts/${id}/comments`, { headers })
@@ -95,3 +100,8 @@ export const voteComment = (direction, id) =>
     },
     body: JSON.stringify({"option": direction})
   }).then(res => res.json())
+
+// Delete a comment from the server
+export const deleteComment = (id) =>
+fetch(`${api}/comments/${id}`, {method: 'DELETE', headers})
+  .then(res => res.json())
