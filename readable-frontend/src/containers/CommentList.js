@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getComments } from '../actions';
 import { connect } from 'react-redux';
-import Comment from './Comment';
+import Comment from '../components/Comment';
 import * as readableAPI from '../utils/readableAPI';
 import {capitalize, dateConvert} from '../utils/helper';
 

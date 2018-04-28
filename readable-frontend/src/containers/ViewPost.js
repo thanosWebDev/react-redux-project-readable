@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getAllPosts, getComments } from '../actions';
 import { connect } from 'react-redux';
-import Vote from './Vote';
-import PostActions from './PostActions';
-import FullPost from './FullPost';
-import Error from './Error';
-import Loading from './Loading';
+import Vote from '../components/Vote';
+import PostActions from '../components/PostActions';
+import FullPost from '../components/FullPost';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 import CommentList from './CommentList';
 import * as readableAPI from '../utils/readableAPI';
 

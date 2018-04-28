@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getAllPosts } from '../actions';
 import { connect } from 'react-redux';
-import Post from './Post';
-import Toolbar from './Toolbar';
-import Error from './Error';
-import Loading from './Loading';
+import Post from '../components/Post';
+import Toolbar from '../components/Toolbar';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 import * as readableAPI from '../utils/readableAPI';
 
 class PostList extends Component  {

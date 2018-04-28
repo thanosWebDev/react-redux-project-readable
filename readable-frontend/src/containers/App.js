@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { getCategories, closeModal } from '../actions';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import '../css/App.css';
-import Header from './Header';
+import Header from '../components/Header';
 import PostList from './PostList';
-import PostForm from './PostForm';
+import PostForm from '../components/PostForm';
 import ViewPost from './ViewPost';
 import Modal from 'react-modal';
-import Error from './Error';
+import Error from '../components/Error';
 import * as readableAPI from '../utils/readableAPI';
 
 class App extends Component {
