@@ -23,7 +23,6 @@ class App extends Component {
   }
 
   render() {
-    const {open, role, editPostId, activeCategory} = this.props.modal;
     return (
       <Router>
         <div>
@@ -62,15 +61,11 @@ class App extends Component {
           <Modal
             className='modal'
             overlayClassName='overlay'
-            isOpen={open}
+            isOpen={this.props.modal.open}
             onRequestClose={this.props.closeModal}
             contentLabel='Post form'
           >
-            <PostForm
-              modalRole={role}
-              editPostId={editPostId}
-              activeCategory={activeCategory}
-            />
+            <PostForm />
           </Modal>
         </div>
       </Router>

@@ -8,11 +8,6 @@ import {capitalize, dateConvert, createPost} from '../utils/helper'
 import Close from 'react-icons/lib/md/close';
 
 class PostForm extends Component  {
-  static propTypes = {
-    modalRole: PropTypes.string.isRequired,
-    editPostId: PropTypes.string,
-    activeCategory: PropTypes.string
-  }
 
   state = {
     title: "",
@@ -25,11 +20,11 @@ class PostForm extends Component  {
 
   // Setup local state according to modal role
   componentDidMount() {
-    const {modalRole, activeCategory, posts, editPostId} = this.props;
-    if (modalRole === 'create') {
+    const {role, activeCategory, posts, editPostId} = this.props;   
+    if (role === 'create') {
       this.setState({ date: Date.now(), category: activeCategory});
     }
-    if (modalRole === 'update') {
+    if (role === 'update') {
       const editPost = posts[editPostId];
       this.setState({
             title: editPost.title,
@@ -43,7 +38,7 @@ class PostForm extends Component  {
   submitNewPost = (e) => {
     e.preventDefault()
     const {title, body, category, author} = this.state;
-    const {activeCategory} = this.props;
+    const {activeCategory, addPost, closeModal} = this.props;
     // Check for empty fields else submit post
     if (!title || !body || !category || !author) {
       this.setState({warning: true});
@@ -57,9 +52,9 @@ class PostForm extends Component  {
       if (activeCategory === category || activeCategory === "") {
         // Create post for Store and dispatch
         const newStorePost = {...newServerPost, voteScore: 1, delete: false, commentCount: 0}
-        this.props.addPost(newStorePost);
+        addPost(newStorePost);
       }
-      this.props.closeModal();
+      closeModal();
     }
   }
 
@@ -67,16 +62,17 @@ class PostForm extends Component  {
   updatePost = (e) => {
     e.preventDefault()
     const {title, body} = this.state;
+    const {editPost, closeModal, editPostId} = this.props;
     // Check for empty fields else update post
     if (!title || !body) {
       this.setState({warning: true});
     } else {
-      const params = [this.props.editPostId, title, body]
+      const params = [editPostId, title, body]
       // Update server
       readableAPI.updatePost(...params);
       // Update Store
-      this.props.editPost(...params)
-      this.props.closeModal();
+      editPost(...params)
+      closeModal();
     }
   }
   
@@ -90,15 +86,15 @@ class PostForm extends Component  {
     const date = dateConvert(this.state.date);
 
     // Alter form function according to role
-    const {modalRole} = this.props;
-    const btnText = modalRole === 'create'? "Save and Post" : "Update";
-    const title = modalRole === 'create'? "Create New Post" : "Edit Post";
-    const formSubmit = modalRole === 'create'? this.submitNewPost : this.updatePost;
+    const {role, closeModal, categories} = this.props;
+    const btnText = role === 'create'? "Save and Post" : "Update";
+    const title = role === 'create'? "Create New Post" : "Edit Post";
+    const formSubmit = role === 'create'? this.submitNewPost : this.updatePost;
 
     return (
       <div className="postForm">
         <div className="modalHeader">
-          <div className="closeBtn" onClick={()=>this.props.closeModal()}><Close /></div>
+          <div className="closeBtn" onClick={()=>closeModal()}><Close /></div>
         </div>
         <div className="modalBody">
           <h2 className="modalTitle">{title}</h2>
@@ -114,7 +110,7 @@ class PostForm extends Component  {
               value={this.state.body} 
               onChange={this.handleInputChange}
               />
-            { modalRole === 'create' && (
+            { role === 'create' && (
               <div>
                 <input className="flatInput" type="text" placeholder="Author" autoComplete="off"
                   name="author"
@@ -127,7 +123,7 @@ class PostForm extends Component  {
                   onChange={this.handleInputChange}
                   >
                   <option value="" disabled>Select Category</option>
-                  {this.props.categories.map((category, index) => (
+                  {categories.map((category, index) => (
                     <option key={index} value={category.name}>{capitalize(category.name)}</option>
                   ))}
                 </select>
@@ -144,8 +140,8 @@ class PostForm extends Component  {
   }
 }
 
-function mapStateToProps ({ categories, posts }) {
-  return {categories, posts}
+function mapStateToProps ({ categories, posts, modal }) {
+  return {categories, posts, ...modal}
 }
 
 function mapDispatchToProps (dispatch) {
