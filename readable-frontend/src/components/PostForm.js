@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPost, editPost,closeModal } from '../actions';
+import { closeModal } from '../actions';
+import { addPost, editPost } from '../actions/posts';
 import * as readableAPI from '../utils/readableAPI';
 import PropTypes from 'prop-types';
 import {capitalize, dateConvert, createPost} from '../utils/helper'

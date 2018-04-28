@@ -1,12 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
-  ADD_POST,
-  DELETE_POST,
-  EDIT_POST,
-  GET_ALL_POSTS,
   GET_CATEGORIES,
-  POST_VOTE,
   SORT_BY,
   CLOSE_MODAL,
   OPEN_MODAL,
@@ -14,6 +9,13 @@ import {
   COMMENT_VOTE,
   DELETE_COMMENT
 } from '../actions';
+import {
+  ADD_POST,
+  DELETE_POST,
+  EDIT_POST,
+  GET_ALL_POSTS,
+  POST_VOTE,
+} from '../actions/posts';
 
 // Categories reducer
 function categories (state = [], action) {

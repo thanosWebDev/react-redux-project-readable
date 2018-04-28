@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deletePost, openModal } from '../actions';
+import { openModal } from '../actions';
+import { deletePost } from '../actions/posts';
 import PropTypes from 'prop-types';
 import * as readableAPI from '../utils/readableAPI';
 

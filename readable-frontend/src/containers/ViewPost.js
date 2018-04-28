@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAllPosts, getComments } from '../actions';
+import { getAllPosts } from '../actions/posts';
 import { connect } from 'react-redux';
 import Vote from '../components/Vote';
 import PostActions from '../components/PostActions';

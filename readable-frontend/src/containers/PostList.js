@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAllPosts } from '../actions';
+import { getAllPosts } from '../actions/posts';
 import { connect } from 'react-redux';
 import Post from '../components/Post';
 import Toolbar from '../components/Toolbar';

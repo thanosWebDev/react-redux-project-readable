@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { postVote, commentVote } from '../actions';
+import { commentVote } from '../actions';
+import { postVote } from '../actions/posts';
 import { connect } from 'react-redux';
 import * as readableAPI from '../utils/readableAPI';
 
