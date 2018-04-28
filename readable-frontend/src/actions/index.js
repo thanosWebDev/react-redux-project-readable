@@ -5,6 +5,8 @@ export const EDIT_POST = 'EDIT_POST'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const POST_VOTE = 'POST_VOTE'
 export const SORT_BY = 'SORT_BY'
+export const CLOSE_MODAL = 'CLOSE_MODAL'
+export const OPEN_MODAL = 'OPEN_MODAL'
 
 
 // Post actions
@@ -55,5 +57,20 @@ export function sortBy (sort) {
   return {
     type: SORT_BY,
     sort
+  }
+}
+
+// Modal actions
+export function closeModal () {
+  return {
+    type: CLOSE_MODAL
+  }
+}
+export function openModal (role, editPostId, activeCategory) {
+  return {
+    type: OPEN_MODAL,
+    role,
+    editPostId,
+    activeCategory
   }
 }

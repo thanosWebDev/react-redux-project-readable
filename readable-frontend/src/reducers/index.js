@@ -7,7 +7,9 @@ import {
   GET_ALL_POSTS,
   GET_CATEGORIES,
   POST_VOTE,
-  SORT_BY
+  SORT_BY,
+  CLOSE_MODAL,
+  OPEN_MODAL
 } from '../actions';
 
 // Categories reducer
@@ -21,6 +23,32 @@ function categories (state = [], action) {
 }
 
 // Sorting reducer
+
+const defaultModal = {
+  open: false,
+  role: "",
+  editPostId: "",
+  activeCategory: ""
+}
+
+function modal (state = defaultModal, action) {
+  const {role, editPostId, activeCategory} = action;
+  switch (action.type) {
+    case OPEN_MODAL :
+      return {
+        open: true,
+        role,
+        editPostId,
+        activeCategory
+      }
+    case CLOSE_MODAL :
+      return defaultModal
+    default :
+      return state
+  }
+}
+
+// Modal control reducer
 function sortBy (state = "timestamp", action) {
   switch (action.type) {
     case SORT_BY :
@@ -70,5 +98,6 @@ function posts (state = {}, action) {
 export default combineReducers({
   categories,
   posts,
-  sortBy
+  sortBy,
+  modal
 })

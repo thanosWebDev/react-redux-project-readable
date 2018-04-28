@@ -10,7 +10,6 @@ import * as readableAPI from '../utils/readableAPI';
 
 class PostListContainer extends Component  {
   static propTypes = {
-    openModal: PropTypes.func.isRequired,
     category: PropTypes.string.isRequired
   }
 
@@ -52,13 +51,11 @@ class PostListContainer extends Component  {
 
     return (
       <div>
-          <Toolbar openModal={this.props.openModal} category={category}/>
+          <Toolbar category={category}/>
           <ul className="postsList">
             {this.props.posts.map((post, index) => (
               <li key={index}>
-                <Post post={post}
-                      openModal={this.props.openModal}
-                />
+                <Post post={post}/>
               </li>
             ))}
           </ul>

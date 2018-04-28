@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCategories } from '../actions';
+import { getCategories, closeModal } from '../actions';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import '../css/App.css';
 import Header from './Header';
@@ -13,13 +13,6 @@ import * as readableAPI from '../utils/readableAPI';
 
 class App extends Component {
 
-  state = {
-    modalOpen: false,
-    modalRole: "",
-    editPostId: "",
-    activeCategory: ""
-  }
-
   // Get all gategories from server and update Store
   componentDidMount() {
     readableAPI.categories().then( data => this.props.getCategories(data))
@@ -29,29 +22,8 @@ class App extends Component {
     Modal.setAppElement('body');
   }
 
-  //Open and setup modal form
-  openModal = (role, id, activeCategory) => {
-    const modalConfig = {
-      modalOpen: true,
-      modalRole: role,
-      editPostId: id,
-      activeCategory
-    }
-    this.setState(() => (modalConfig));
-  }
-  //Close modal form and reset settings
-  closeModal = () => {
-    const modalReset = {
-      modalOpen: false,
-      modalRole: "",
-      editPostId: "",
-      activeCategory: ""
-    }
-    this.setState(() => (modalReset))
-  }
-
   render() {
-    const {modalOpen, modalRole, editPostId, activeCategory} = this.state;
+    const {open, role, editPostId, activeCategory} = this.props.modal;
     return (
       <Router>
         <div>
@@ -61,7 +33,6 @@ class App extends Component {
               <Route exact path="/" render={(props) => (
                 <main>
                   <PostListContainer
-                    openModal={this.openModal}
                     category={""}
                     key={props.location.key}
                   />
@@ -70,7 +41,6 @@ class App extends Component {
               <Route exact path="/:category" render={(props) => (
                 <main>
                   <PostListContainer
-                    openModal={this.openModal}
                     category={props.match.params.category}
                     key={props.location.key}
                   />
@@ -78,8 +48,7 @@ class App extends Component {
               )}/>
               <Route exact path="/:category/:post_id" render={({match, history}) => (
                 <main>
-                  <FullPost openModal={this.openModal}
-                            post_id={match.params.post_id}
+                  <FullPost post_id={match.params.post_id}
                             {...history}
                   />
                 </main>
@@ -93,13 +62,12 @@ class App extends Component {
           <Modal
             className='modal'
             overlayClassName='overlay'
-            isOpen={modalOpen}
-            onRequestClose={this.closeModal}
+            isOpen={open}
+            onRequestClose={this.props.closeModal}
             contentLabel='Post form'
           >
             <PostForm
-              close={this.closeModal}
-              modalRole={modalRole}
+              modalRole={role}
               editPostId={editPostId}
               category={activeCategory}
             />
@@ -110,13 +78,14 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({categories}) {
-  return {categories}
+function mapStateToProps ({categories, modal}) {
+  return {categories, modal}
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getCategories: (data) => dispatch(getCategories(data))
+    getCategories: (data) => dispatch(getCategories(data)),
+    closeModal: () => dispatch(closeModal())
   }
 }
 

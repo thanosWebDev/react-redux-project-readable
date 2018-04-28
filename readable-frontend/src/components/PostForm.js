@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPost, editPost } from '../actions';
+import { addPost, editPost,closeModal } from '../actions';
 import * as readableAPI from '../utils/readableAPI';
 import PropTypes from 'prop-types';
 import {capitalize, dateConvert, createPost} from '../utils/helper'
@@ -8,10 +8,9 @@ import Close from 'react-icons/lib/md/close';
 
 class PostForm extends Component  {
   static propTypes = {
-    close: PropTypes.func.isRequired,
     modalRole: PropTypes.string.isRequired,
     editPostId: PropTypes.string,
-    category: PropTypes.string.isRequired
+    category: PropTypes.string
   }
 
   state = {
@@ -53,7 +52,7 @@ class PostForm extends Component  {
       // Create post for Store
       const newStorePost = {...newServerPost, voteScore: 1, delete: false, commentCount: 0}
       this.props.addPost(newStorePost);
-      this.props.close();
+      this.props.closeModal();
     }
   }
 
@@ -70,7 +69,7 @@ class PostForm extends Component  {
       readableAPI.updatePost(...params);
       // Update Store
       this.props.editPost(...params)
-      this.props.close();
+      this.props.closeModal();
     }
   }
   
@@ -92,7 +91,7 @@ class PostForm extends Component  {
     return (
       <div className="postForm">
         <div className="modalHeader">
-          <div className="closeBtn" onClick={()=>this.props.close()}><Close /></div>
+          <div className="closeBtn" onClick={()=>this.props.closeModal()}><Close /></div>
         </div>
         <div className="modalBody">
           <h2 className="modalTitle">{title}</h2>
@@ -145,7 +144,8 @@ function mapStateToProps ({ categories, posts }) {
 function mapDispatchToProps (dispatch) {
   return {
     addPost: (data) => dispatch(addPost(data)),
-    editPost: (id, title, body) => dispatch(editPost(id, title, body))
+    editPost: (id, title, body) => dispatch(editPost(id, title, body)),
+    closeModal: () => dispatch(closeModal())
   }
 }
 

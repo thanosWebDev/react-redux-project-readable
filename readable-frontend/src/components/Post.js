@@ -8,11 +8,10 @@ import {capitalize, dateConvert} from '../utils/helper'
 class Post extends Component  {
   static propTypes = {
     post: PropTypes.object.isRequired,
-    openModal: PropTypes.func.isRequired
   }
 
   render() {
-    const {post, openModal} = this.props;
+    const {post} = this.props;
     return (
         <div className="post">
               <Vote votes={post.voteScore}
@@ -25,9 +24,7 @@ class Post extends Component  {
                 </Link>
                 <p className="excerpt">{post.body.substr(0, 130)}…</p>
                 <div className="comments">Comments: {post.commentCount}</div>
-                <PostActions  id={post.id}
-                              openModal={openModal}
-                />
+                <PostActions id={post.id}/>
               </div>
         </div>
     )

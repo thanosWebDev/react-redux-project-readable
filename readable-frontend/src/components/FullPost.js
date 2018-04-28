@@ -11,7 +11,6 @@ import {capitalize, dateConvert} from '../utils/helper';
 
 class FullPost extends Component  {
   static propTypes = {
-    openModal: PropTypes.func.isRequired,
     post_id: PropTypes.string.isRequired
   }
 
@@ -60,7 +59,6 @@ class FullPost extends Component  {
             <h1 className="fullpostTitle">{post.title || "loading.."}</h1>
             <p className="fullpostBody">{post.body || "loading.."}</p>
             <PostActions  id={post.id}
-                          openModal={this.props.openModal}
                           redirect={this.props.push}
             />
           </div>

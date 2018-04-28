@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deletePost } from '../actions';
+import { deletePost, openModal } from '../actions';
 import PropTypes from 'prop-types';
 import * as readableAPI from '../utils/readableAPI';
 
 class PostActions extends Component  {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    openModal: PropTypes.func.isRequired,
     redirect: PropTypes.func
 
   }
@@ -26,7 +25,7 @@ class PostActions extends Component  {
     const {id, openModal} = this.props;
     return (
       <div className="postActions">
-        <div className="edit" onClick={()=>openModal('update', id)}>edit</div>
+        <div className="edit" onClick={()=>openModal('update', id, null)}>edit</div>
         <div className="delete" onClick={() => this.deletePost(id)}>delete</div>
       </div>
     )
@@ -35,7 +34,8 @@ class PostActions extends Component  {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deletePost: (data) => dispatch(deletePost(data))
+    deletePost: (data) => dispatch(deletePost(data)),
+    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
   }
 }
 

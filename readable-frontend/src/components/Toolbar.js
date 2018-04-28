@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { sortBy } from '../actions';
+import { sortBy, openModal } from '../actions';
 
 class Toolbar extends Component  {
   static propTypes = {
-    openModal: PropTypes.func.isRequired,
     category: PropTypes.string.isRequired
   }
 
@@ -36,7 +35,8 @@ function mapStateToProps ({sortBy}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    sortBy: (data) => dispatch(sortBy(data))
+    sortBy: (data) => dispatch(sortBy(data)),
+    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
   }
 }
 
