@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAllPosts } from '../actions';
+import { getAllPosts, getComments } from '../actions';
 import { connect } from 'react-redux';
 import Vote from './Vote';
 import PostActions from './PostActions';
 import Error from './Error';
 import Loading from './Loading';
+import Comment from './Comment';
 import * as readableAPI from '../utils/readableAPI';
 import {capitalize, dateConvert} from '../utils/helper';
 
@@ -19,22 +20,25 @@ class FullPost extends Component  {
     isLoading: true
   }
   
-  // Get posts from server, change data format and update Store
   componentDidMount() {
-    const {getAllPosts, post_id} = this.props;
+    const {getAllPosts, getComments, post_id} = this.props;
+      // Get post details from server and update Store
       readableAPI.getPost(post_id)
       .then( post => {
-        if (post.error || !post.id) {
+        if (post.error || !post.id) { // Check if post id is invalid
           this.setState(() => ({isIdValid: false, isLoading: false}));
         } else {
           getAllPosts({[post.id]: post});
           this.setState(() => ({isLoading: false}));
         }
       })
+      // Get comments of the post from server and update Store
+      readableAPI.allPostComments(post_id)
+      .then( comments => getComments(comments))
   }
 
   render() {
-    const {post} = this.props;
+    const {post, comments} = this.props;
 
     // Render Loading component
     if (this.state.isLoading) {
@@ -49,11 +53,10 @@ class FullPost extends Component  {
       <div className="fullPostContainer">
 
         <div className="voteSection">
-          <Vote votes={post.voteScore} id={post.id}/>
+          <Vote votes={post.voteScore} id={post.id} voteRole={"post"}/>
         </div>
 
         <div className="postSection">
-
           <div className="fullPost">
             <p className="fullpostInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</p>
             <h1 className="fullpostTitle">{post.title || "loading.."}</h1>
@@ -65,18 +68,14 @@ class FullPost extends Component  {
 
           <div className="commentsSection">
             <h4 className="commentsNum">{post.commentCount || 0} Comments</h4>
-            {/* <div className="comment">
-              <div className="commentVote">
-              <Vote votes={"12"} id={"34ee33431e"}/>
-              </div>
-              <div className="commentBody">
-                <p className="commentInfo">John Gleez • 23-5-2018</p>
-                <p className="commentText">Lorem ipsum dolor sit amet, adipiscing elit, do eiusmod defa incididunt ut labore et do magna aliqua asase.</p>
-                <div className="commentActions">Edit delete</div>
-              </div>
-            </div> */}
+            <ul className="commentsList">
+              {comments.map((comment, index) => (
+                <li key={index}>
+                  <Comment comment={comment}/>
+                </li>
+              ))}
+            </ul>
           </div>
-
         </div>
 
       </div>
@@ -84,15 +83,17 @@ class FullPost extends Component  {
   }
 }
 
-function mapStateToProps ({posts}) {
+function mapStateToProps ({posts, comments}) {
   return {
-    post: {...Object.values(posts)[0]}
+    post: {...Object.values(posts)[0]},
+    comments: [...Object.values(comments)]
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getAllPosts: (data) => dispatch(getAllPosts(data))
+    getAllPosts: (data) => dispatch(getAllPosts(data)),
+    getComments: (data) => dispatch(getComments(data))
   }
 }
 
