@@ -42,7 +42,7 @@ export const addNewPost = (post) =>
   }).then(res => res.json())
 
 // Delete a post from the server
-export const deletePost = (id) =>
+export const erasePost = (id) =>
   fetch(`${api}/posts/${id}`, {method: 'DELETE', headers})
     .then(res => res.json())
 
