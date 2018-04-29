@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
-  GET_CATEGORIES,
+  RECEIVE_CATEGORIES,
   SORT_BY,
   CLOSE_MODAL,
   OPEN_MODAL,
@@ -20,7 +20,7 @@ import {
 // Categories reducer
 function categories (state = [], action) {
   switch (action.type) {
-    case GET_CATEGORIES :
+    case RECEIVE_CATEGORIES :
       return action.categories
     default :
       return state
@@ -28,7 +28,6 @@ function categories (state = [], action) {
 }
 
 // Modal control reducer
-
 const defaultModal = {
   open: false,
   role: "",

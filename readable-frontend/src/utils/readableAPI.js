@@ -16,7 +16,7 @@ const headers = {
 
 // GATEGORIES
 // Get all available gategories from server
-export const categories = () =>
+export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)

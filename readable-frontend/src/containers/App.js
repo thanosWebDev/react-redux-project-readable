@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCategories, closeModal } from '../actions';
+import { closeModal, fetchCategories } from '../actions';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import '../css/App.css';
 import Header from '../components/Header';
@@ -9,13 +9,12 @@ import PostForm from '../components/PostForm';
 import ViewPost from './ViewPost';
 import Modal from 'react-modal';
 import Error from '../components/Error';
-import * as readableAPI from '../utils/readableAPI';
 
 class App extends Component {
 
   // Get all gategories from server and update Store
   componentDidMount() {
-    readableAPI.categories().then( data => this.props.getCategories(data))
+    this.props.fetchCategories();
   }
 
   componentWillMount() {
@@ -77,9 +76,9 @@ function mapStateToProps ({categories, modal}) {
   return {categories, modal}
 }
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getCategories: (data) => dispatch(getCategories(data)),
+    fetchCategories: () => dispatch(fetchCategories()),
     closeModal: () => dispatch(closeModal())
   }
 }
