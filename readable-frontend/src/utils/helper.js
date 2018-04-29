@@ -16,7 +16,7 @@ export function dateConvert(timestamp = Date.now()) {
 }
 
 //Create a new post object ready to be submited to the server
-export function createPost(data) {
+export function constructPost(data) {
   const newPost = {
     id: uuidv4(),
     timestamp: data.date,
