@@ -37,14 +37,13 @@ export function getAllPosts (posts) {
     posts
   }
 }
-export function editPost (id, title, body) {
-  return {
-    type: EDIT_POST,
-    id,
-    title,
-    body
-  }
-}
+//-----------------------------------
+export const editPost = (id, title, body) => dispatch => (
+  readableAPI
+    .updatePost(id, title, body)
+    .then(post => dispatch(addPost(post)))
+)
+//-----------------------------------
 export function postVote (direction, id) {
   return {
     type: POST_VOTE,

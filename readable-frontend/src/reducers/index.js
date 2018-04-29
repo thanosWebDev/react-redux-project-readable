@@ -76,11 +76,7 @@ function posts (state = {}, action) {
     case EDIT_POST :
       return {
         ...state,
-        [id]: {
-          ...state[id],
-          title: title,
-          body: body
-        }
+        [post.id]: post
       }
     case DELETE_POST :
       const { [action.postId]: value, ...newState } = state;

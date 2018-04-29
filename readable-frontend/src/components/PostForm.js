@@ -57,11 +57,7 @@ class PostForm extends Component  {
     if (!title || !body) {
       this.setState({warning: true});
     } else {
-      const params = [editPostId, title, body]
-      // Update server
-      readableAPI.updatePost(...params);
-      // Update Store
-      editPost(...params)
+      editPost(editPostId, title, body);
       closeModal();
     }
   }
