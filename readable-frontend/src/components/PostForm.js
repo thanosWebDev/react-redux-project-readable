@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions';
-import { addPost, editPost } from '../actions/posts';
+import { editPost, createPost } from '../actions/posts';
 import * as readableAPI from '../utils/readableAPI';
 import PropTypes from 'prop-types';
-import {capitalize, dateConvert, createPost} from '../utils/helper'
+import {capitalize, dateConvert} from '../utils/helper'
 import Close from 'react-icons/lib/md/close';
 
 class PostForm extends Component  {
@@ -38,22 +38,12 @@ class PostForm extends Component  {
   submitNewPost = (e) => {
     e.preventDefault()
     const {title, body, category, author} = this.state;
-    const {activeCategory, addPost, closeModal} = this.props;
+    const {activeCategory, createPost, closeModal} = this.props;
     // Check for empty fields else submit post
     if (!title || !body || !category || !author) {
       this.setState({warning: true});
     } else {
-      // create post for server and submit
-      const newServerPost = createPost(this.state);
-      readableAPI.addNewPost(newServerPost);
-      
-      // If form's selected category equals menu activeCategory
-      // or activeCategory is empty (homepage) then update Store too
-      if (activeCategory === category || activeCategory === "") {
-        // Create post for Store and dispatch
-        const newStorePost = {...newServerPost, voteScore: 1, delete: false, commentCount: 0}
-        addPost(newStorePost);
-      }
+      createPost(this.state, activeCategory, category);
       closeModal();
     }
   }
@@ -146,7 +136,7 @@ function mapStateToProps ({ categories, posts, modal }) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    addPost: (data) => dispatch(addPost(data)),
+    createPost: (data, activeCat, selectedCat) => dispatch(createPost(data, activeCat, selectedCat)),
     editPost: (id, title, body) => dispatch(editPost(id, title, body)),
     closeModal: () => dispatch(closeModal())
   }
