@@ -1,9 +1,8 @@
 import React from 'react';
 
 const Loading = () => (
-  <div className="errorPage">
-    <h2>Loading...</h2>
-    <p>Please wait.</p>
+  <div className="loadPage">
+    <h2>Loading...please wait</h2>
   </div>
 )
 

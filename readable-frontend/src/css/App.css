@@ -436,6 +436,15 @@ margin-bottom: 15px;
 .errorPage p {
   font-size: 17px;
 }
+/* Loading page*/
+.loadPage {
+  text-align: center;
+  margin-top: 35px;
+}
+.loadPage h2 {
+  color: #ccc;
+  font-weight: 300;
+}
 
 
 /* Footer */
