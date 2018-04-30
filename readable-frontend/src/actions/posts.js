@@ -31,6 +31,12 @@ export function deletePost (postId) {
     postId
   }
 }
+export const removePost = (postId) => dispatch => (
+  readableAPI
+    .erasePost(postId)
+    .then(data => dispatch(deletePost(data.id)))
+)
+//-----------------------------------
 export function getAllPosts (posts) {
   return {
     type: GET_ALL_POSTS,
