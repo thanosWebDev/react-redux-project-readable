@@ -8,7 +8,8 @@ import {
   GET_COMMENTS,
   COMMENT_VOTE,
   DELETE_COMMENT,
-  SET_LOADING_STATUS
+  SET_LOADING_STATUS,
+  SET_POST_ID_STATUS
 } from '../actions';
 import {
   ADD_POST,
@@ -63,11 +64,21 @@ function sortBy (state = "timestamp", action) {
   }
 }
 
-// isLoading reducer
-function isLoading (state = true, action) {
+// UI reducer
+const defaultUI = {
+  isLoading: true,
+  isPostIdvalid: true
+}
+function ui (state = defaultUI, action) {
   switch (action.type) {
     case SET_LOADING_STATUS :
-      return action.status
+      return {
+        ...state,
+        isLoading: action.status}
+    case SET_POST_ID_STATUS :
+      return {
+        ...state,
+        isPostIdvalid: action.status}
     default :
       return state
   }
@@ -133,5 +144,5 @@ export default combineReducers({
   posts,
   sortBy,
   modal,
-  isLoading
+  ui
 })

@@ -1,6 +1,6 @@
 import {constructPost} from '../utils/helper'
 import * as readableAPI from '../utils/readableAPI';
-import {isLoading} from '../actions'
+import {isLoading, isPostIdvalid} from '../actions'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ADD_POST = 'ADD_POST'
@@ -23,6 +23,20 @@ export const createPost = (postData, activeCategory, selectedCategory) => dispat
     .then( data => {
       if (activeCategory === selectedCategory || activeCategory === "") {
         dispatch(addPost(data))
+      }
+    })
+}
+//-----------------------------------
+export const fetchPost = (postId) => dispatch => {
+  readableAPI.getPost(postId)
+    .then( post => {
+      // Check if post id is valid
+      if (post.error || !post.id) {
+        dispatch(isPostIdvalid(false));
+        dispatch(isLoading(false));
+      } else {
+        dispatch(receivePosts({[post.id]: post}));
+        dispatch(isLoading(false));
       }
     })
 }
