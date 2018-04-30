@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { receivePosts, removePost } from '../actions/posts';
+import { receivePosts, removePost, setPostVote } from '../actions/posts';
 import { openModal } from '../actions';
 import { connect } from 'react-redux';
 import Vote from '../components/Vote';
@@ -43,7 +43,7 @@ class ViewPost extends Component  {
   }
 
   render() {
-    const {post, post_id} = this.props;
+    const {post, post_id, setPostVote} = this.props;
 
     // Render Loading component
     if (this.state.isLoading) {
@@ -57,7 +57,11 @@ class ViewPost extends Component  {
     return (
       <div className="fullPostContainer">
         <div className="voteSection">
-          <Vote votes={post.voteScore} id={post.id} voteRole={"post"}/>
+          <Vote votes={post.voteScore} 
+                id={post.id} 
+                voteRole={"post"}
+                submitVote={setPostVote}
+          />
         </div>
         <div className="postSection">
           <FullPost post={post} 
@@ -81,7 +85,8 @@ function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
     receivePosts: (data) => dispatch(receivePosts(data)),
-    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
+    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory)),
+    setPostVote: (direction, id) => dispatch(setPostVote(direction, id))
   }
 }
 

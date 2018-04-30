@@ -7,7 +7,6 @@ import Post from './Post';
 import Toolbar from '../components/Toolbar';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
-import * as readableAPI from '../utils/readableAPI';
 
 class PostList extends Component  {
   static propTypes = {

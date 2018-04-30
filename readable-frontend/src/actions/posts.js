@@ -69,10 +69,15 @@ export const editPost = (id, title, body) => dispatch => (
     .then(post => dispatch(addPost(post)))
 )
 //-----------------------------------
-export function postVote (direction, id) {
+export function postVote (id, voteScore) {
   return {
     type: POST_VOTE,
-    direction,
-    id
+    id,
+    voteScore
   }
 }
+export const setPostVote = (direction, id) => dispatch => (
+  readableAPI
+    .votePost(direction, id)
+    .then(post => dispatch(postVote(id, post.voteScore)))
+)

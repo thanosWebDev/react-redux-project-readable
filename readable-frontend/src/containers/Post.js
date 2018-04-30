@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Vote from '../components/Vote';
 import PostContent from '../components/PostContent';
 import { openModal } from '../actions';
-import { removePost } from '../actions/posts';
+import { removePost, setPostVote } from '../actions/posts';
 
 class Post extends Component  {
   static propTypes = {
@@ -12,12 +12,13 @@ class Post extends Component  {
   }
 
   render() {
-    const {post, removePost, openModal} = this.props;
+    const {post, removePost, openModal, setPostVote} = this.props;
     return (
         <div className="post">
           <Vote votes={post.voteScore}
                 id={post.id}
                 voteRole={"post"}
+                submitVote={setPostVote}
           />
           <PostContent  post={post}
                         deletePost={()=>removePost(post.id)}
@@ -31,7 +32,8 @@ class Post extends Component  {
 function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
-    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
+    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory)),
+    setPostVote: (direction, id) => dispatch(setPostVote(direction, id)),
   }
 }
 

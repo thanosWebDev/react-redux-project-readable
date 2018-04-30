@@ -75,7 +75,7 @@ function isLoading (state = true, action) {
 
 //Posts reducer
 function posts (state = {}, action) {
-  const {id, title, body, direction, post, posts} = action
+  const {id, post, posts, voteScore} = action
   switch (action.type) {
     case RECEIVE_POSTS :
       return posts
@@ -93,12 +93,11 @@ function posts (state = {}, action) {
       const { [action.postId]: value, ...newState } = state;
       return newState
     case POST_VOTE :
-      const currentVote = state[id].voteScore;
       return {
         ...state,
         [id]: {
           ...state[id],
-          voteScore: direction === 'upVote' ? (currentVote + 1) : (currentVote - 1)
+          voteScore: voteScore
         }
       }
     default :
