@@ -7,7 +7,8 @@ import {
   OPEN_MODAL,
   GET_COMMENTS,
   COMMENT_VOTE,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  SET_LOADING_STATUS
 } from '../actions';
 import {
   ADD_POST,
@@ -57,6 +58,16 @@ function sortBy (state = "timestamp", action) {
   switch (action.type) {
     case SORT_BY :
       return action.sort
+    default :
+      return state
+  }
+}
+
+// isLoading reducer
+function isLoading (state = true, action) {
+  switch (action.type) {
+    case SET_LOADING_STATUS :
+      return action.status
     default :
       return state
   }
@@ -123,5 +134,6 @@ export default combineReducers({
   comments,
   posts,
   sortBy,
-  modal
+  modal,
+  isLoading
 })

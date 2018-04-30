@@ -5,6 +5,7 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 // General
 export const COMMENT_VOTE ='COMMENT_VOTE'
 export const SORT_BY = 'SORT_BY'
+export const SET_LOADING_STATUS = 'SET_LOADING_STATUS'
 // Modal
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const OPEN_MODAL = 'OPEN_MODAL'
@@ -53,6 +54,12 @@ export function sortBy (sort) {
   return {
     type: SORT_BY,
     sort
+  }
+}
+export function isLoading (status) {
+  return {
+    type: SET_LOADING_STATUS,
+    status
   }
 }
 
