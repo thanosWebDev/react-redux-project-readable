@@ -84,7 +84,7 @@ export const votePost = (direction, id) =>
 
 // COMMENTS
 // Get all the comments for a single post
-export const allPostComments = (id) =>
+export const getComments = (id) =>
   fetch(`${api}/posts/${id}/comments`, { headers })
     .then(res => res.json())
     .then(data => transformData(data))
@@ -105,3 +105,14 @@ export const voteComment = (direction, id) =>
 export const deleteComment = (id) =>
 fetch(`${api}/comments/${id}`, {method: 'DELETE', headers})
   .then(res => res.json())
+
+// Add a new comment to server
+export const addNewComment = (comment) =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( comment )
+  }).then(res => res.json())

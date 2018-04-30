@@ -5,7 +5,8 @@ import {
   SORT_BY,
   CLOSE_MODAL,
   OPEN_MODAL,
-  GET_COMMENTS,
+  RECEIVE_COMMENTS,
+  ADD_COMMENT,
   COMMENT_VOTE,
   DELETE_COMMENT,
   SET_LOADING_STATUS,
@@ -118,10 +119,15 @@ function posts (state = {}, action) {
 
 //Comments reducer
 function comments (state = {}, action) {
-  const {id, comments, voteScore} = action
+  const {id, comments, voteScore, comment} = action
   switch (action.type) {
-    case GET_COMMENTS :
+    case RECEIVE_COMMENTS :
       return comments
+    case ADD_COMMENT :
+      return {
+        ...state,
+        [comment.id]: comment
+      }
     case DELETE_COMMENT :
       const { [action.commentId]: value, ...newState } = state;
       return newState

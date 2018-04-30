@@ -1,4 +1,5 @@
 import * as readableAPI from '../utils/readableAPI';
+import {constructComment} from '../utils/helper'
 
 // categories
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
@@ -11,17 +12,35 @@ export const SET_POST_ID_STATUS = 'SET_POST_ID_STATUS'
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const OPEN_MODAL = 'OPEN_MODAL'
 // Comments
-export const GET_COMMENTS = 'GET_COMMENTS'
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 
 
 // Comments actions
-export function getComments (comments) {
+export function receiveComments (comments) {
   return {
-    type: GET_COMMENTS,
+    type: RECEIVE_COMMENTS,
     comments
   }
+}
+export const fetchComments = (post_id) => dispatch => {
+  readableAPI
+    .getComments(post_id)
+    .then( data => dispatch(receiveComments(data)))
+}
+export function addComment (comment) {
+  return {
+    type: ADD_COMMENT,
+    comment
+  }
+}
+export const createComment = (body, author, parentId) => dispatch => {
+  const newComment = constructComment(body, author, parentId)
+  readableAPI
+    .addNewComment(newComment)
+    .then( data => dispatch(addComment(data)))
 }
 export function deleteComment (commentId) {
   return {

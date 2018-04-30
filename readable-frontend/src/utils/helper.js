@@ -28,6 +28,18 @@ export function constructPost(data) {
   return newPost;
 }
 
+//Create a new comment object ready to be submited to the server
+export function constructComment(body, author, parentId) {
+  const newComment = {
+    id: uuidv4(),
+    timestamp: Date.now(),
+    body: body,
+    author: author,
+    parentId: parentId
+  };
+  return newComment;
+}
+
 // Transform the posts, returned from server, to a format better suited for Store state
 export function transformData(data) {
   let newObj = {};
