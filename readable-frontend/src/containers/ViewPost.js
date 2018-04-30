@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAllPosts } from '../actions/posts';
+import { getAllPosts, removePost } from '../actions/posts';
+import { openModal } from '../actions';
 import { connect } from 'react-redux';
 import Vote from '../components/Vote';
-import PostActions from '../components/PostActions';
 import FullPost from '../components/FullPost';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
@@ -34,6 +34,14 @@ class ViewPost extends Component  {
       })
   }
 
+  deletePost = (id) => {
+    const {removePost, push} = this.props;
+    removePost(id)
+    if (window.location.pathname.includes(id)){
+      push('/')
+    }
+  }
+
   render() {
     const {post, post_id} = this.props;
 
@@ -52,9 +60,11 @@ class ViewPost extends Component  {
           <Vote votes={post.voteScore} id={post.id} voteRole={"post"}/>
         </div>
         <div className="postSection">
-          <FullPost post={post} />
-          <PostActions  id={post.id} redirect={this.props.push} />
-          <CommentList  post_id={post_id} />
+          <FullPost post={post} 
+                    deletePost={()=>this.deletePost(post_id)}
+                    openModal={()=>this.props.openModal('update', post_id, null)}
+          />
+          <CommentList  post_id={post_id}/>
         </div>
       </div>
     )
@@ -69,7 +79,9 @@ function mapStateToProps ({posts}) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    removePost: (data) => dispatch(removePost(data)),
     getAllPosts: (data) => dispatch(getAllPosts(data)),
+    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
   }
 }
 
