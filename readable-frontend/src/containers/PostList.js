@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getAllPosts } from '../actions/posts';
+import { sortBy, openModal } from '../actions';
 import { connect } from 'react-redux';
 import Post from './Post';
 import Toolbar from '../components/Toolbar';
@@ -36,7 +37,7 @@ class PostList extends Component  {
   }
 
   render() {
-    const {category, categories} = (this.props);
+    const {category, categories, openModal, sortBy, sorting, posts} = (this.props);
     const homepage = (category === "");
     const categoryExists = (categories.indexOf(category) >= 0);
 
@@ -51,9 +52,12 @@ class PostList extends Component  {
 
     return (
       <div>
-          <Toolbar category={category}/>
+          <Toolbar  openModal={()=>openModal('create', null, category)}
+                    sortBy={sortBy}
+                    sorting={sorting}
+          />
           <ul className="postsList">
-            {this.props.posts.map((post, index) => (
+            {posts.map((post, index) => (
               <li key={index}>
                 <Post post={post}/>
               </li>
@@ -69,13 +73,16 @@ function mapStateToProps ({ posts, categories, sortBy}) {
     // Dynamic sorting of posts array 
     posts: Object.values(posts)
             .sort((a, b) => b[sortBy] - a[sortBy]),
-    categories: categories.map(item => item.path)
+    categories: categories.map(item => item.path),
+    sorting: sortBy
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getAllPosts: (data) => dispatch(getAllPosts(data))
+    getAllPosts: (data) => dispatch(getAllPosts(data)),
+    sortBy: (data) => dispatch(sortBy(data)),
+    openModal: (role, id, activeCat) => dispatch(openModal(role, id, activeCat))
   }
 }
 

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { sortBy, openModal } from '../actions';
 
 class Toolbar extends Component  {
   static propTypes = {
-    category: PropTypes.string.isRequired
+    openModal: PropTypes.func.isRequired,
+    sortBy: PropTypes.func.isRequired,
+    sorting: PropTypes.string.isRequired
   }
 
   render() {
-    const {category, openModal, sortBy, sorting} = this.props;
+    const {openModal, sortBy, sorting} = this.props;
     return (
         <div className="toolbar">
           <div className="addPost-container">
-            <div className="greenButton" onClick={()=>openModal('create', null, category)}>Add New Post</div>
+            <div className="greenButton" onClick={openModal}>Add New Post</div>
           </div>
           <div className="sortPosts-container">
            <label>Sort by:</label>
@@ -28,16 +28,4 @@ class Toolbar extends Component  {
   }
 }
 
-function mapStateToProps ({sortBy}) {
-  //Using Store to control select state
-  return {sorting: sortBy}
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    sortBy: (data) => dispatch(sortBy(data)),
-    openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
+export default Toolbar
