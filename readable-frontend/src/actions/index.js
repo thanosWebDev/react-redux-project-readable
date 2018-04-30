@@ -48,6 +48,17 @@ export function deleteComment (commentId) {
     commentId
   }
 }
+export const removeComment = (commentId) => dispatch => (
+  readableAPI
+    .eraseComment(commentId)
+    .then(comment => dispatch(deleteComment(comment.id)))
+)
+export const editComment = (id, body) => dispatch => {
+  const timestamp = Date.now();
+  readableAPI
+    .updateComment(id, timestamp, body)
+    .then(comment => dispatch(addComment(comment)))
+}
 export function commentVote (id, voteScore) {
   return {
     type: COMMENT_VOTE,

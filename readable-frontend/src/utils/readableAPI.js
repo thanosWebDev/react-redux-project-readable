@@ -102,7 +102,7 @@ export const voteComment = (direction, id) =>
   }).then(res => res.json())
 
 // Delete a comment from the server
-export const deleteComment = (id) =>
+export const eraseComment = (id) =>
 fetch(`${api}/comments/${id}`, {method: 'DELETE', headers})
   .then(res => res.json())
 
@@ -116,3 +116,14 @@ export const addNewComment = (comment) =>
     },
     body: JSON.stringify( comment )
   }).then(res => res.json())
+
+// Edit the details of an existing comment
+export const updateComment = (id, timestamp, body) =>
+fetch(`${api}/comments/${id}`, {
+  method: 'PUT',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({timestamp, body})
+}).then(res => res.json())

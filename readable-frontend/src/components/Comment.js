@@ -1,20 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteComment, setCommentVote} from '../actions';
+import { removeComment, setCommentVote, editComment} from '../actions';
 import Vote from './Vote';
 import {capitalize, dateConvert} from '../utils/helper'
-import * as readableAPI from '../utils/readableAPI';
 
 class Comment extends Component  {
   static propTypes = {
     comment: PropTypes.object
   }
 
+  state = {
+    visibleForm: false,
+    body: ""
+  }
+
   // Deletes a post from server and store
-  deleteComment = (id) => {
-    readableAPI.deleteComment(id)
-    this.props.deleteComment(id);
+  deleteComment = () => {
+    const {comment, removeComment} = this.props;
+    removeComment(comment.id)
+  }
+
+  // Submit edit form and update a comment
+  submitForm = (e) => {
+    e.preventDefault();
+    const {editComment, comment} = this.props;
+    editComment(comment.id, this.state.body);
+    this.closeEditForm();
+  }
+
+  openEditForm = () => {
+    this.setState({
+      visibleForm: !this.state.visibleForm,
+      body: this.props.comment.body
+    })
+  }
+
+  closeEditForm = () => {
+    this.setState({visibleForm: !this.state.visibleForm, body: ""})
+  }
+
+  // Form control
+  handleInputChange= (event) => {
+    this.setState({body: event.target.value});
   }
 
   render() {
@@ -29,13 +57,34 @@ class Comment extends Component  {
           />
         </div>
         <div className="mainComment">
-          <p className="commentInfo"><span className="greenText">{capitalize(comment.author)}</span> • {dateConvert(comment.timestamp)}</p>
-          <p className="commentBody">{comment.body}</p>
-          <div className="commentActions">
-            <div className="editComment">Edit</div>
-            <div className="deleteComment" onClick={() => this.deleteComment(comment.id)}>Delete</div>
-          </div>
+
+          {(!this.state.visibleForm && 
+            <div>
+              <p className="commentInfo"><span className="greenText">{capitalize(comment.author)}</span> • {dateConvert(comment.timestamp)}</p>
+              <p className="commentBody">{comment.body}</p>
+              <div className="commentActions">
+                <div className="editComment" onClick={this.openEditForm}>Edit</div>
+                <div className="deleteComment" onClick={this.deleteComment}>Delete</div>
+              </div>
+            </div>
+          )}
+
+          {(this.state.visibleForm && 
+          <form className="editForm" onSubmit={this.submitForm}>
+            <textarea className="editCommentBody" placeholder="Write you comment"
+              name="body"
+              value={this.state.body} 
+              onChange={this.handleInputChange}
+            /> 
+            <div className="commentActions">
+              <button type="submit" className="editBtn">Save</button>
+              <div className="editBtn" onClick={this.closeEditForm}>Cancel</div>
+            </div>
+          </form>
+          )}
+
         </div>
+        
       </div>
     )
   }
@@ -43,7 +92,8 @@ class Comment extends Component  {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteComment: (data) => dispatch(deleteComment(data)),
+    removeComment: (data) => dispatch(removeComment(data)),
+    editComment: (id, body) => dispatch(editComment(id, body)),
     setCommentVote: (direction, id) => dispatch(setCommentVote(direction, id)),
   }
 }

@@ -246,7 +246,7 @@ margin-bottom: 15px;
 }
 .modal {
   position: relative;
-  max-width: 510px;
+  max-width: 550px;
   top: 40px;
   margin: 0 auto;
   border: 1px solid rgb(228, 220, 214);
@@ -270,7 +270,7 @@ margin-bottom: 15px;
   color: #666;
 }
 .modalBody {
-  padding: 8px 40px 40px 40px;
+  padding: 18px 60px 60px 60px;
 }
 .modalTitle {
   padding: 0 0 4px 0;
@@ -481,6 +481,28 @@ margin-bottom: 15px;
   display: inline-block;
 }
 
+/* Edit comment form */
+.editCommentBody {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f6f6f6;
+  font-size: 14px;
+  width: 100%;
+  font-weight: 300;
+}
+.editBtn {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  margin: 0 15px 0 0;
+  padding: 0;
+  color: #999;
+  display: inline-block;
+}
+.editBtn:hover {
+  color: #666;
+  cursor: pointer;
+}
 
 /* Error page */
 .errorPage {
