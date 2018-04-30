@@ -31,7 +31,7 @@ class App extends Component {
               <Route exact path="/" render={(props) => (
                 <main>
                   <PostList
-                    category={""}
+                    category={'all'}
                     key={props.location.key}
                   />
                 </main> 

@@ -24,7 +24,7 @@ export const getCategories = () =>
 
 // POSTS
 // Get all posts from server
-export const allPosts = () =>
+export const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
     .then(data => transformData(data))
@@ -64,7 +64,7 @@ export const updatePost = (id, title, body) =>
   }).then(res => res.json())
 
 // Get all of the posts for a particular category
-export const allCategoryPosts = (category) =>
+export const getCategoryPosts = (category) =>
   fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json())
     .then(data => transformData(data))

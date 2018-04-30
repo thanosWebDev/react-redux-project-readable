@@ -14,7 +14,7 @@ import {
   ADD_POST,
   DELETE_POST,
   EDIT_POST,
-  GET_ALL_POSTS,
+  RECEIVE_POSTS,
   POST_VOTE,
 } from '../actions/posts';
 
@@ -77,7 +77,7 @@ function isLoading (state = true, action) {
 function posts (state = {}, action) {
   const {id, title, body, direction, post, posts} = action
   switch (action.type) {
-    case GET_ALL_POSTS :
+    case RECEIVE_POSTS :
       return posts
     case ADD_POST :
       return {

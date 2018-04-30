@@ -1,13 +1,15 @@
 import {constructPost} from '../utils/helper'
 import * as readableAPI from '../utils/readableAPI';
+import {isLoading} from '../actions'
 
-export const GET_ALL_POSTS = 'GET_ALL_POSTS'
+export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const POST_VOTE = 'POST_VOTE'
 
 
+// Post actions
 
 export function addPost (post) {
   return {
@@ -37,10 +39,27 @@ export const removePost = (postId) => dispatch => (
     .then(data => dispatch(deletePost(data.id)))
 )
 //-----------------------------------
-export function getAllPosts (posts) {
+export function receivePosts (posts) {
   return {
-    type: GET_ALL_POSTS,
+    type: RECEIVE_POSTS,
     posts
+  }
+}
+export const getPosts = (category) => dispatch => {
+  if (category === 'all') { // for homepage
+    readableAPI
+    .getAllPosts()
+    .then(data => {
+      dispatch(receivePosts(data));
+      dispatch(isLoading(false));
+    })
+  } else { // for specific category
+    readableAPI
+    .getCategoryPosts(category)
+    .then(data => {
+      dispatch(receivePosts(data));
+      dispatch(isLoading(false));
+    })
   }
 }
 //-----------------------------------

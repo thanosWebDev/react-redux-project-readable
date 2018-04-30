@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAllPosts, removePost } from '../actions/posts';
+import { receivePosts, removePost } from '../actions/posts';
 import { openModal } from '../actions';
 import { connect } from 'react-redux';
 import Vote from '../components/Vote';
@@ -21,14 +21,14 @@ class ViewPost extends Component  {
   }
   
   componentDidMount() {
-    const {getAllPosts, post_id} = this.props;
+    const {receivePosts, post_id} = this.props;
       // Get post details from server and update Store
       readableAPI.getPost(post_id)
       .then( post => {
         if (post.error || !post.id) { // Check if post id is invalid
           this.setState(() => ({isIdValid: false, isLoading: false}));
         } else {
-          getAllPosts({[post.id]: post});
+          receivePosts({[post.id]: post});
           this.setState(() => ({isLoading: false}));
         }
       })
@@ -80,7 +80,7 @@ function mapStateToProps ({posts}) {
 function mapDispatchToProps (dispatch) {
   return {
     removePost: (data) => dispatch(removePost(data)),
-    getAllPosts: (data) => dispatch(getAllPosts(data)),
+    receivePosts: (data) => dispatch(receivePosts(data)),
     openModal: (role, id, activeCategory) => dispatch(openModal(role, id, activeCategory))
   }
 }

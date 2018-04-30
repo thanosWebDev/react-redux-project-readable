@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getAllPosts } from '../actions/posts';
+import { getPosts } from '../actions/posts';
 import { sortBy, openModal } from '../actions';
 import { connect } from 'react-redux';
 import Post from './Post';
@@ -13,36 +13,20 @@ class PostList extends Component  {
   static propTypes = {
     category: PropTypes.string.isRequired
   }
-
-  state = {
-    isLoading: true
-  }
   
   // Get posts from server and update Store
   componentDidMount() {
-    const {getAllPosts, category} = this.props;
-    if(category) { //For e specific category
-    readableAPI.allCategoryPosts(category)
-      .then( posts => {
-        getAllPosts(posts);
-        this.setState(() => ({isLoading: false}));
-      })
-    } else {// For homepage
-      readableAPI.allPosts()
-      .then( posts => {
-        getAllPosts(posts);
-        this.setState(() => ({isLoading: false}));
-      })
-    }
+    const {getPosts, category} = this.props;
+    getPosts(category);
   }
 
   render() {
-    const {category, categories, openModal, sortBy, sorting, posts} = (this.props);
-    const homepage = (category === "");
+    const {category, categories, openModal, sortBy, sorting, posts, isLoading} = (this.props);
+    const homepage = (category === 'all');
     const categoryExists = (categories.indexOf(category) >= 0);
 
     // Render Loading component
-    if (this.state.isLoading) {
+    if (isLoading) {
       return <span><Loading /></span>
     }
     // Render Error page if category is not valid
@@ -68,19 +52,20 @@ class PostList extends Component  {
   }
 }
 
-function mapStateToProps ({ posts, categories, sortBy}) {
+function mapStateToProps ({ posts, categories, sortBy, isLoading}) {
   return {
     // Dynamic sorting of posts array 
     posts: Object.values(posts)
             .sort((a, b) => b[sortBy] - a[sortBy]),
     categories: categories.map(item => item.path),
-    sorting: sortBy
+    sorting: sortBy,
+    isLoading
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    getAllPosts: (data) => dispatch(getAllPosts(data)),
+    getPosts: (category) => dispatch(getPosts(category)),
     sortBy: (data) => dispatch(sortBy(data)),
     openModal: (role, id, activeCat) => dispatch(openModal(role, id, activeCat))
   }
