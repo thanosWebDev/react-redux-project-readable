@@ -28,6 +28,18 @@ export function deleteComment (commentId) {
     commentId
   }
 }
+export function commentVote (id, voteScore) {
+  return {
+    type: COMMENT_VOTE,
+    id,
+    voteScore
+  }
+}
+export const setCommentVote = (direction, id) => dispatch => (
+  readableAPI
+    .voteComment(direction, id)
+    .then(comment => dispatch(commentVote(id, comment.voteScore)))
+)
 
 // Categories actions
 export function receiveCategories (categories) {
@@ -43,13 +55,6 @@ export const fetchCategories = () => dispatch => (
 )
 
 // General app actions
-export function commentVote (direction, id) {
-  return {
-    type: COMMENT_VOTE,
-    direction,
-    id
-  }
-}
 export function sortBy (sort) {
   return {
     type: SORT_BY,

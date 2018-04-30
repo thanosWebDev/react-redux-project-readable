@@ -108,7 +108,7 @@ function posts (state = {}, action) {
 
 //Comments reducer
 function comments (state = {}, action) {
-  const {id, direction, comments} = action
+  const {id, comments, voteScore} = action
   switch (action.type) {
     case GET_COMMENTS :
       return comments
@@ -116,12 +116,11 @@ function comments (state = {}, action) {
       const { [action.commentId]: value, ...newState } = state;
       return newState
     case COMMENT_VOTE :
-      const currentVote = state[id].voteScore;
       return {
         ...state,
         [id]: {
           ...state[id],
-          voteScore: direction === 'upVote' ? (currentVote + 1) : (currentVote - 1)
+          voteScore: voteScore
         }
       }
     default :

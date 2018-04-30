@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteComment} from '../actions';
+import { deleteComment, setCommentVote} from '../actions';
 import Vote from './Vote';
 import {capitalize, dateConvert} from '../utils/helper'
 import * as readableAPI from '../utils/readableAPI';
@@ -18,11 +18,15 @@ class Comment extends Component  {
   }
 
   render() {
-    const {comment} = this.props;
+    const {comment, setCommentVote} = this.props;
     return (
       <div className="comment">
         <div className="commentVote">
-          <Vote votes={comment.voteScore} id={comment.id} voteRole={"comment"}/>
+          <Vote votes={comment.voteScore}
+                id={comment.id}
+                voteRole={"comment"}
+                submitVote={setCommentVote}
+          />
         </div>
         <div className="mainComment">
           <p className="commentInfo"><span className="greenText">{capitalize(comment.author)}</span> • {dateConvert(comment.timestamp)}</p>
@@ -40,6 +44,7 @@ class Comment extends Component  {
 function mapDispatchToProps (dispatch) {
   return {
     deleteComment: (data) => dispatch(deleteComment(data)),
+    setCommentVote: (direction, id) => dispatch(setCommentVote(direction, id)),
   }
 }
 export default connect(null, mapDispatchToProps)(Comment);
