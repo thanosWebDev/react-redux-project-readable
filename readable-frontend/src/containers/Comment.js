@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeComment, setCommentVote, editComment} from '../actions/comments';
-import Vote from './Vote';
-import {capitalize, dateConvert} from '../utils/helper'
+import Vote from '../components/Vote';
+import CommentEditForm from '../components/CommentEditForm';
+import CommentMain from '../components/CommentMain';
 
 class Comment extends Component  {
   static propTypes = {
@@ -20,7 +21,6 @@ class Comment extends Component  {
     const {comment, removeComment} = this.props;
     removeComment(comment.id)
   }
-
   // Submit edit form and update a comment
   submitForm = (e) => {
     e.preventDefault();
@@ -28,18 +28,15 @@ class Comment extends Component  {
     editComment(comment.id, this.state.body);
     this.closeEditForm();
   }
-
   openEditForm = () => {
     this.setState({
       visibleForm: !this.state.visibleForm,
       body: this.props.comment.body
     })
   }
-
   closeEditForm = () => {
     this.setState({visibleForm: !this.state.visibleForm, body: ""})
   }
-
   // Form control
   handleInputChange= (event) => {
     this.setState({body: event.target.value});
@@ -57,34 +54,20 @@ class Comment extends Component  {
           />
         </div>
         <div className="mainComment">
-
           {(!this.state.visibleForm && 
-            <div>
-              <p className="commentInfo"><span className="greenText">{capitalize(comment.author)}</span> • {dateConvert(comment.timestamp)}</p>
-              <p className="commentBody">{comment.body}</p>
-              <div className="commentActions">
-                <div className="editComment" onClick={this.openEditForm}>Edit</div>
-                <div className="deleteComment" onClick={this.deleteComment}>Delete</div>
-              </div>
-            </div>
+            <CommentMain  comment={comment}
+                          openEditForm={this.openEditForm}
+                          deleteComment={this.deleteComment}
+            />
           )}
-
           {(this.state.visibleForm && 
-          <form className="editForm" onSubmit={this.submitForm}>
-            <textarea className="editCommentBody" placeholder="Write you comment"
-              name="body"
-              value={this.state.body} 
-              onChange={this.handleInputChange}
-            /> 
-            <div className="commentActions">
-              <button type="submit" className="editBtn">Save</button>
-              <div className="editBtn" onClick={this.closeEditForm}>Cancel</div>
-            </div>
-          </form>
+            <CommentEditForm  body={this.state.body}
+                              handleInputChange={this.handleInputChange}
+                              submitForm={this.submitForm}
+                              closeEditForm={this.closeEditForm}
+            />
           )}
-
         </div>
-        
       </div>
     )
   }

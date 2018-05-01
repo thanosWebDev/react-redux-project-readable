@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { fetchComments, createComment } from '../actions/comments';
 import { connect } from 'react-redux';
 import CommentForm from '../components/CommentForm';
-import Comment from '../components/Comment';
+import Comment from './Comment';
 
 class CommentList extends Component  {
   static propTypes = {
