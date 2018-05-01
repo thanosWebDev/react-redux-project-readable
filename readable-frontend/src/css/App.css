@@ -5,18 +5,15 @@
   padding: 0 10px;
 }
 
-
 /* Helper classes */
 .greenText {
   color: rgb(174, 201, 0);
 }
 
-
 /* Header */
 header {
   padding-top: 15px;
 }
-
 .logo {
   font-size: 30px;
   font-weight: 700;
@@ -50,6 +47,8 @@ nav {
 .menu-item:first-child {
   padding: 3px 15px 7px 15px;
   font-size: 20px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 .menu-item:hover{
   background-color: #8DA300;
@@ -101,6 +100,8 @@ nav {
   color: #666;
   font-size: 14px;
   background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 5px;
 }
 
 
@@ -517,6 +518,7 @@ margin-bottom: 15px;
 .errorPage p {
   font-size: 17px;
 }
+
 /* Loading page*/
 .loadPage {
   text-align: center;
@@ -526,18 +528,83 @@ margin-bottom: 15px;
   color: #ccc;
   font-weight: 300;
 }
-
-
-/* Footer */
-footer {
-  background: rgb(146, 138, 131);
-  margin: 40px auto 0 auto;
-  max-width: 972px;
+@media only screen and (max-width: 660px) { 
+  .commentAuthor {
+    margin-bottom: 10px;
+    width: 100%;
+  }
 }
-footer p{
-  color: #eee;
-  font-weight: 300;
-  font-size: 14px;;
-  text-align: center;
-  padding: 7px 0;
+
+@media only screen and (max-width: 600px) {
+  .menu-item {
+    padding: 8px 12px;
+  }
+  /* List view for post */
+  .post {
+    padding: 15px 15px 12px 15px;
+    }
+  .postContent {
+      margin-left: 15px;
+  }
+  .addPost-container {
+    width: 130px;
+  }
+  .sortPosts-container {
+    width: calc(100% - 130px);
+  }
+  .greenButton {
+    width: 130px;
+  }
+  .postInfo span:first-child {
+    display: block;
+  }
+  span.hide {
+    display: none;
+  }
+  .modalBody {
+    padding: 15px
+  }
+  /* Post View and comments */
+  .postSection {
+    padding: 35px 15px 35px 15px; 
+  }
+  .fullpostInfo {
+    font-size: 14px;
+  }
+  .fullpostInfo span:first-child {
+    display: block;
+  }
+  .fullpostTitle {
+    font-size: 22px;
+  }
+  .fullpostBody {
+    font-size: 16px;
+  }
+  .commentForm-container {
+    margin-left: 0;
+  }
+  .commentVote {
+    width: 30px;
+    margin-right: 10px;
+  }
+
+  /* vote */
+  .voteSection {
+    width: 35px;
+    margin-right: 10px;
+    padding-top: 43px;
+  }
+  .arrowUp-post {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 12px solid #AAA;
+  }
+  .arrowDown-post {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 12px solid #AAA;
+  }
+  .vNum-post {
+    font-size: 18px;
+  }
 }
