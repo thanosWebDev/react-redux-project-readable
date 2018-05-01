@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeComment, setCommentVote, editComment} from '../actions';
+import { removeComment, setCommentVote, editComment} from '../actions/comments';
 import Vote from './Vote';
 import {capitalize, dateConvert} from '../utils/helper'
 

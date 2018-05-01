@@ -24,7 +24,7 @@ class PostList extends Component  {
   }
 
   render() {
-    const {category, categories, openModal, sortBy, sorting, posts, ui} = (this.props);
+    const {category, categories, openModal, sortBy, posts, ui} = (this.props);
     const homepage = (category === 'all');
     const categoryExists = (categories.indexOf(category) >= 0);
 
@@ -41,7 +41,7 @@ class PostList extends Component  {
       <div>
           <Toolbar  openModal={()=>openModal('create', null, category)}
                     sortBy={sortBy}
-                    sorting={sorting}
+                    sorting={ui.sortBy}
           />
           <ul className="postsList">
             {posts.map((post, index) => (
@@ -55,13 +55,12 @@ class PostList extends Component  {
   }
 }
 
-function mapStateToProps ({ posts, categories, sortBy, ui}) {
+function mapStateToProps ({ posts, categories, ui}) {
   return {
     // Dynamic sorting of posts array 
     posts: Object.values(posts)
-            .sort((a, b) => b[sortBy] - a[sortBy]),
+            .sort((a, b) => b[ui.sortBy] - a[ui.sortBy]),
     categories: categories.map(item => item.path),
-    sorting: sortBy,
     ui
   }
 }

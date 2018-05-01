@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fetchComments, createComment } from '../actions';
+import { fetchComments, createComment } from '../actions/comments';
 import { connect } from 'react-redux';
 import CommentForm from '../components/CommentForm';
 import Comment from '../components/Comment';

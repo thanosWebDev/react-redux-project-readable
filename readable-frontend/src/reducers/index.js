@@ -5,10 +5,6 @@ import {
   SORT_BY,
   CLOSE_MODAL,
   OPEN_MODAL,
-  RECEIVE_COMMENTS,
-  ADD_COMMENT,
-  COMMENT_VOTE,
-  DELETE_COMMENT,
   SET_LOADING_STATUS,
   SET_POST_ID_STATUS
 } from '../actions';
@@ -19,6 +15,12 @@ import {
   RECEIVE_POSTS,
   POST_VOTE,
 } from '../actions/posts';
+import {
+  RECEIVE_COMMENTS,
+  ADD_COMMENT,
+  COMMENT_VOTE,
+  DELETE_COMMENT
+} from '../actions/comments';
 
 // Categories reducer
 function categories (state = [], action) {
@@ -55,20 +57,11 @@ function modal (state = defaultModal, action) {
   }
 }
 
-// Sorting reducer
-function sortBy (state = "timestamp", action) {
-  switch (action.type) {
-    case SORT_BY :
-      return action.sort
-    default :
-      return state
-  }
-}
-
 // UI reducer
 const defaultUI = {
   isLoading: true,
-  isPostIdvalid: true
+  isPostIdvalid: true,
+  sortBy: "timestamp"
 }
 function ui (state = defaultUI, action) {
   switch (action.type) {
@@ -80,6 +73,10 @@ function ui (state = defaultUI, action) {
       return {
         ...state,
         isPostIdvalid: action.status}
+    case SORT_BY :
+      return {
+        ...state,
+        sortBy: action.sort}
     default :
       return state
   }
@@ -148,7 +145,6 @@ export default combineReducers({
   categories,
   comments,
   posts,
-  sortBy,
   modal,
   ui
 })
