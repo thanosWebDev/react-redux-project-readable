@@ -21,7 +21,7 @@ export const createPost = (postData, activeCategory, selectedCategory) => dispat
   const newPost = constructPost(postData)
   readableAPI.addNewPost(newPost)
     .then( data => {
-      if (activeCategory === selectedCategory || activeCategory === "") {
+      if (activeCategory === selectedCategory || activeCategory === "all") {
         dispatch(addPost(data))
       }
     })

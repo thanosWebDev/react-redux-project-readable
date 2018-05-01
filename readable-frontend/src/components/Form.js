@@ -58,7 +58,7 @@ class Form extends Component  {
                   value={category} 
                   onChange={handleInputChange}
                   >
-                  <option value="" disabled>Select Category</option>
+                  <option value="all" disabled>Select Category</option>
                   {categories.map((category, index) => (
                     <option key={index} value={category.name}>{capitalize(category.name)}</option>
                   ))}
