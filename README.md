@@ -1,22 +1,27 @@
-# Readable API Server
+# Readable: A React-Redux test project
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+This Web App was created as a test project for the "React Nanodegree Program" course.
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+Readable is a content and comment web app project. Users are able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users are also able to edit and delete posts and comments.
 
-## Start Developing
+## How to run the App
 
-To get started developing right away:
+The project includes a **backend server** (provided by the course creators) and a **front-end web app**.
 
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+To run the app locally first make sure you have npm & node installed, then follow this steps:
 
-## API Server
+- **Download the project**
+    - Clone the project from github:  `git clone https://github.com/thanosWebDev/react-redux-project-readable.git`
+    - Change directory into the project: `cd react-redux-project-readable`
 
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+- **Install and start the API server**
+    - Change to **'api-server'** subdirectory: `cd api-server`
+    - Install server dependencies: `npm install`
+    - Start the server: `npm start`
+
+- **Install and start the Front-end server**
+    - Open a new terminal window
+    - From the project's root folder change to **'readable-frontend'** subdirectory: `cd readable-frontend`
+    - Install dependencies: `npm install`
+    - Start the server:  `npm start`
+    - Open your browser to: `http://localhost:3000`
