@@ -92,7 +92,13 @@ class PostForm extends Component  {
 }
 
 function mapStateToProps ({ categories, posts, modal }) {
-  return {categories, posts, ...modal}
+  return {
+    categories,
+    posts,
+    role: modal.role,
+    activeCategory: modal.activeCategory,
+    editPostId: modal.editPostId
+  }
 }
 
 function mapDispatchToProps (dispatch) {
