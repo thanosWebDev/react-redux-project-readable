@@ -54,9 +54,6 @@ class App extends Component {
               <Route component={Error} />
             </Switch>
           </div>
-          {/* <footer>
-            <p>React / Redux - Test project</p>
-          </footer> */}
           <Modal
             className='modal'
             overlayClassName='overlay'
