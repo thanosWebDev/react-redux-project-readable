@@ -41,10 +41,10 @@ export function constructComment(body, author, parentId) {
 }
 
 // Transform the posts, returned from server, to a format better suited for Store state
-export function transformData(data) {
+export function transformData(posts) {
   let newObj = {};
-  for (let i=0; i<data.length; i++) {
-    newObj[data[i].id] = data[i];
+  for (const post of posts) {
+    newObj[post.id] = post;
   }
   return newObj;
 }
