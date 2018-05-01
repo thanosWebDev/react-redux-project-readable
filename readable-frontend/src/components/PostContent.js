@@ -14,7 +14,7 @@ class PostContent extends Component  {
     const {post, openModal, deletePost} = this.props;
     return (
           <div className="postContent">
-            <div className="postInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</div>
+            <div className="postInfo"><span className="greenText">{capitalize(post.author)}</span> <span className="hide">•</span> {dateConvert(post.timestamp)} • {capitalize(post.category)}</div>
             <Link to={`/${post.category}/${post.id}`}>
               <h2 className="postTitle">{post.title}</h2>
             </Link>

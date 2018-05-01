@@ -13,7 +13,7 @@ class FullPost extends Component  {
     const {post, openModal, deletePost} = this.props;
     return (
       <div className="fullPost">
-          <p className="fullpostInfo"><span className="greenText">{capitalize(post.author)}</span> • {dateConvert(post.timestamp)} • {capitalize(post.category)}</p>
+          <p className="fullpostInfo"><span className="greenText">{capitalize(post.author)}</span> <span className="hide">•</span> {dateConvert(post.timestamp)} • {capitalize(post.category)}</p>
           <h1 className="fullpostTitle">{post.title}</h1>
           <p className="fullpostBody">{post.body}</p>
           <div className="postActions">
