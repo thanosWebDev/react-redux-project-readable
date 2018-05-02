@@ -30,12 +30,12 @@ class Comment extends Component  {
   }
   openEditForm = () => {
     this.setState({
-      visibleForm: !this.state.visibleForm,
+      visibleForm: true,
       body: this.props.comment.body
     })
   }
   closeEditForm = () => {
-    this.setState({visibleForm: !this.state.visibleForm, body: ""})
+    this.setState({visibleForm: false, body: ""})
   }
   // Form control
   handleInputChange= (event) => {

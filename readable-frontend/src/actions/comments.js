@@ -27,8 +27,8 @@ export function addComment (comment) {
     comment
   }
 }
-export const createComment = (body, author, parentId) => dispatch => {
-  const newComment = constructComment(body, author, parentId)
+export const createComment = (data) => dispatch => {
+  const newComment = constructComment(data)
   readableAPI
     .addNewComment(newComment)
     .then( data => dispatch(addComment(data)))

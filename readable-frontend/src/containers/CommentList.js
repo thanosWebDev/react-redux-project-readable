@@ -30,7 +30,8 @@ class CommentList extends Component  {
     if (!body || !author) {
       //this.setState({warning: true});
     } else {
-      createComment(body, author, post_id);
+      const newComment = {body, author, post_id};
+      createComment(newComment);
       this.setState({body: "", author: ""});
     }
   }
@@ -46,7 +47,7 @@ class CommentList extends Component  {
     const {body, author} = this.state;
     return (
       <div className="commentsSection">
-            <h4 className="commentsNum">{comments.length || 0} Comments</h4>
+            <h4 className="commentsNum">{comments.length} Comments</h4>
             <CommentForm  handleInputChange={this.handleInputChange}
                           submitNewComment={this.submitNewComment}
                           body={body}
@@ -73,7 +74,7 @@ function mapStateToProps ({comments}) {
 function mapDispatchToProps (dispatch) {
   return {
     fetchComments: (data) => dispatch(fetchComments(data)),
-    createComment: (body, author, parentId) => dispatch(createComment(body, author, parentId))
+    createComment: (data) => dispatch(createComment(data))
   }
 }
 

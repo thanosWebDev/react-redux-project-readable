@@ -29,13 +29,13 @@ export function constructPost(data) {
 }
 
 //Create a new comment object ready to be submited to the server
-export function constructComment(body, author, parentId) {
+export function constructComment(data) {
   const newComment = {
     id: uuidv4(),
     timestamp: Date.now(),
-    body: body,
-    author: author,
-    parentId: parentId
+    body: data.body,
+    author: data.author,
+    parentId: data.post_id
   };
   return newComment;
 }
