@@ -5,7 +5,7 @@ import { sortBy, openModal, isLoading } from '../actions';
 import { connect } from 'react-redux';
 import Post from './Post';
 import Toolbar from '../components/Toolbar';
-import Error from '../components/Error';
+import Page404 from '../components/Page404';
 import Loading from '../components/Loading';
 
 class PostList extends Component  {
@@ -34,7 +34,7 @@ class PostList extends Component  {
     }
     // Render Error page if category is not valid
     if (!categoryExists && !homepage) {
-      return <span><Error /></span>
+      return <span><Page404 /></span>
     }
 
     return (

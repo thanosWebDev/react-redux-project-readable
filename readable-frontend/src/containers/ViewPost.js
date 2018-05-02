@@ -5,7 +5,7 @@ import { openModal, isLoading, isPostIdvalid } from '../actions';
 import { connect } from 'react-redux';
 import Vote from '../components/Vote';
 import FullPost from '../components/FullPost';
-import Error from '../components/Error';
+import Page404 from '../components/Page404';
 import Loading from '../components/Loading';
 import CommentList from './CommentList';
 
@@ -42,7 +42,7 @@ class ViewPost extends Component  {
     }
     // Render Error page if post id is not valid
     if (!ui.isPostIdvalid) {
-      return <span><Error /></span>
+      return <span><Page404 /></span>
     }
 
     return (

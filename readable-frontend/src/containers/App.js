@@ -8,7 +8,7 @@ import PostList from './PostList';
 import PostForm from '../containers/PostForm';
 import ViewPost from './ViewPost';
 import Modal from 'react-modal';
-import Error from '../components/Error';
+import Page404 from '../components/Page404';
 
 class App extends Component {
 
@@ -51,7 +51,7 @@ class App extends Component {
                   />
                 </main>
               )}/>
-              <Route component={Error} />
+              <Route component={Page404} />
             </Switch>
           </div>
           <Modal
