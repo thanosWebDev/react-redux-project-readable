@@ -518,6 +518,12 @@ margin-bottom: 15px;
 .errorPage p {
   font-size: 17px;
 }
+.returnLink {
+  color: #666;
+}
+.returnLink:hover {
+  color: #7c8f00;
+}
 
 /* Loading page*/
 .loadPage {
