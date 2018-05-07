@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions';
 import { editPost, createPost } from '../actions/posts';
-import Form from '../components/Form';
+import CreatePostForm from '../components/CreatePostForm';
+import EditPostForm from '../components/EditPostForm';
 import {dateConvert} from '../utils/helper'
 
 class PostForm extends Component  {
@@ -18,16 +19,15 @@ class PostForm extends Component  {
 
   // Setup local state according to modal role
   componentDidMount() {
-    const {role, activeCategory, posts, editPostId} = this.props;   
+    const {role, activeCategory, post} = this.props;   
     if (role === 'create') {
       this.setState({ date: Date.now(), category: activeCategory});
     }
     if (role === 'update') {
-      const editPost = posts[editPostId];
       this.setState({
-            title: editPost.title,
-            body: editPost.body,
-            date: editPost.timestamp
+            title: post.title,
+            body: post.body,
+            date: post.timestamp
           })
     }
   }
@@ -73,19 +73,31 @@ class PostForm extends Component  {
 
     return (
       <div className="postForm">
-      <Form submitNewPost={this.submitNewPost}
-            updatePost={this.updatePost}
-            date={date}
-            title={title}
-            body={body}
-            author={author}
-            category={category}
-            categories={categories}
-            role={role}
-            closeModal={closeModal}
-            warning={warning}
-            handleInputChange={this.handleInputChange}
-      />
+        { role === 'create' && (
+          <CreatePostForm submitNewPost={this.submitNewPost}
+                          updatePost={this.updatePost}
+                          date={date}
+                          title={title}
+                          body={body}
+                          author={author}
+                          category={category}
+                          categories={categories}
+                          role={role}
+                          closeModal={closeModal}
+                          warning={warning}
+                          handleInputChange={this.handleInputChange}
+          />
+        )}
+        { role === 'update' && (
+          <EditPostForm updatePost={this.updatePost}
+                        date={date}
+                        title={title}
+                        body={body}
+                        closeModal={closeModal}
+                        warning={warning}
+                        handleInputChange={this.handleInputChange}
+          />
+        )}
       </div>
     )
   }
@@ -94,7 +106,7 @@ class PostForm extends Component  {
 function mapStateToProps ({ categories, posts, modal }) {
   return {
     categories,
-    posts,
+    post: posts[modal.editPostId],
     role: modal.role,
     activeCategory: modal.activeCategory,
     editPostId: modal.editPostId
